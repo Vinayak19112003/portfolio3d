@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Styles */
+body {
+  background-color: #050505;
+  color: #E5E5E5;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  cursor: none;
+  /* Custom cursor handles this */
+}
+
+a,
+button {
+  cursor: none;
+}
+
+::selection {
+  background: #6366f1;
+  /* Indigo selection */
+  color: #FFFFFF;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.text-glow {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.hover\:rotate-y-2:hover {
+  transform: rotateY(2deg);
+}
+
+.hover\:rotate-x-2:hover {
+  transform: rotateX(2deg);
+}
