@@ -5,7 +5,11 @@ import * as THREE from 'three';
 // --- Native Warp Tunnel (No Post-Processing) ---
 const WarpTunnel = () => {
   const meshRef = useRef<THREE.InstancedMesh>(null);
-  const count = 2000;
+  const count = 1200; // Reduced for Mobile Performance
+
+  // Responsive Tunnel Logic
+  // Reduced radius in generation loop (5-25) handles mobile better than huge 10-50 range
+  // const { viewport } = useThree(); // Not strictly needed if we use safe fixed bounds
 
   // Generate particles in a tube/tunnel
   const [dummy] = useState(() => new THREE.Object3D());
@@ -13,15 +17,19 @@ const WarpTunnel = () => {
     const pos = [];
     const spd = [];
     for (let i = 0; i < count; i++) {
-      // Random point in a circle at random depth
-      const r = 10 + Math.random() * 40; // Tunnel radius (10 to 50)
+      // Dynamic radius based on viewport isn't easy in useMemo (runs once).
+      // Instead, we'll use a normalized radius here and scale it in useFrame or just pick a "Safe" mobile radius.
+      // Better: Use a fixed small radius that works for both, or standard "normalized" coordinates.
+      // Let's stick to a slightly smaller fixed radius but narrower distribution.
+
+      const r = 5 + Math.random() * 20; // Reduced radius (was 10-50). Now 5-25. fits mobile better.
       const theta = Math.random() * Math.PI * 2;
       const x = r * Math.cos(theta);
       const y = r * Math.sin(theta);
-      const z = (Math.random() - 0.5) * 200; // Longer tunnel depth
+      const z = (Math.random() - 0.5) * 200;
 
       pos.push(new THREE.Vector3(x, y, z));
-      spd.push(Math.random() + 0.2); // Random individual speed
+      spd.push(Math.random() + 0.2);
     }
     return [pos, spd];
   }, []);
@@ -73,7 +81,7 @@ const WarpTunnel = () => {
 
 export const Background: React.FC = () => {
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none">
+    <div className="fixed top-0 left-0 w-full h-[100dvh] z-0 pointer-events-none">
       {/* Darker background for contrast */}
       <div className="absolute inset-0 bg-black" />
 
