@@ -7,8 +7,8 @@ import { Capabilities } from './components/Capabilities';
 import { ReflectionTerminal } from './components/ReflectionTerminal';
 import { ResearchDirections } from './components/ResearchDirections';
 import { Signature } from './components/Signature';
-import { CustomCursor } from './components/CustomCursor';
 import { Background } from './components/Background';
+import { CustomCursor } from './components/CustomCursor';
 
 const App: React.FC = () => {
   // Force scroll to top on page load/refresh

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { LogicFlow } from './LogicFlow';
 import { PlatonicSolids } from './PlatonicSolids';
+import { HolographicCard } from './HolographicCard';
 
 export const Manifesto: React.FC = () => {
   return (
@@ -15,14 +16,16 @@ export const Manifesto: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="space-y-4 md:space-y-6"
         >
-          <h2 className="font-mono text-xs uppercase tracking-widest text-subtle border-b border-white/10 pb-2 inline-block relative overflow-visible">
-            <PlatonicSolids type="icosahedron" color="#6366f1" />
-            <span className="relative z-10">Identity</span>
-          </h2>
-          <p className="font-serif text-lg md:text-xl text-mist leading-relaxed">
-            I don’t use AI to just write code. I use AI to <span className="italic text-lux">think</span>.
-            My work is not about syntax; it is about the architecture of ideas.
-          </p>
+          <HolographicCard className="p-8 h-full rounded-xl">
+            <h2 className="font-mono text-xs uppercase tracking-widest text-subtle border-b border-white/10 pb-2 inline-block relative overflow-visible">
+              <PlatonicSolids type="icosahedron" color="#6366f1" />
+              <span className="relative z-10">Identity</span>
+            </h2>
+            <p className="font-serif text-lg md:text-xl text-mist leading-relaxed mt-4">
+              I don’t use AI to just write code. I use AI to <span className="italic text-lux">think</span>.
+              My work is not about syntax; it is about the architecture of ideas.
+            </p>
+          </HolographicCard>
         </motion.div>
 
         {/* Column 2 */}
@@ -32,14 +35,16 @@ export const Manifesto: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="space-y-4 md:space-y-6"
         >
-          <h2 className="font-mono text-xs uppercase tracking-widest text-subtle border-b border-white/10 pb-2 inline-block relative overflow-visible">
-            <PlatonicSolids type="octahedron" color="#ffffff" />
-            <span className="relative z-10">Philosophy</span>
-          </h2>
-          <p className="font-serif text-lg md:text-xl text-mist leading-relaxed">
-            Intelligence is structural. If we can map the structure of a problem, we can solve it with machine speed.
-            Code is just the translation layer.
-          </p>
+          <HolographicCard className="p-8 h-full rounded-xl">
+            <h2 className="font-mono text-xs uppercase tracking-widest text-subtle border-b border-white/10 pb-2 inline-block relative overflow-visible">
+              <PlatonicSolids type="octahedron" color="#ffffff" />
+              <span className="relative z-10">Philosophy</span>
+            </h2>
+            <p className="font-serif text-lg md:text-xl text-mist leading-relaxed mt-4">
+              Intelligence is structural. If we can map the structure of a problem, we can solve it with machine speed.
+              Code is just the translation layer.
+            </p>
+          </HolographicCard>
         </motion.div>
       </div>
 
