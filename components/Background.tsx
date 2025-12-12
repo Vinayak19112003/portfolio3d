@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, Instance, Instances, Text } from '@react-three/drei';
 import { EffectComposer, Bloom, Noise, Vignette } from '@react-three/postprocessing';
@@ -8,8 +8,18 @@ import * as THREE from 'three';
 // --- Neural Network (AI Theme) ---
 // A complex network of glowing nodes and connections
 const NeuralNetwork = ({ count = 300, connectionDistance = 3.5 }) => {
+  // Mobile optimization: Reduce count if screen is small
+  const isMobile = useMemo(() => {
+    if (typeof window !== 'undefined') return window.innerWidth < 768;
+    return false;
+  }, []);
+
+  const finalCount = isMobile ? count / 3 : count; // 100 particles on mobile
+  const finalDist = isMobile ? connectionDistance * 1.5 : connectionDistance;
+
   const meshRef = useRef(null);
   const linesRef = useRef(null);
+  // ...
 
   // Generate random neurons
   const [particles, linesGeometry] = useMemo(() => {
@@ -17,7 +27,7 @@ const NeuralNetwork = ({ count = 300, connectionDistance = 3.5 }) => {
     const tempLines = [];
 
     // Spread particles in a wide volume
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < finalCount; i++) {
       const x = (Math.random() - 0.5) * 50;
       const y = (Math.random() - 0.5) * 50;
       const z = (Math.random() - 0.5) * 30;
@@ -27,10 +37,10 @@ const NeuralNetwork = ({ count = 300, connectionDistance = 3.5 }) => {
     // STATIC CONNECTIONS (Performance Optimization)
     // Calculating dynamic connections N^2 every frame is too heavy for JS.
     // We pre-calculate connections between nearby neighbors once.
-    for (let i = 0; i < count; i++) {
-      for (let j = i + 1; j < count; j++) {
+    for (let i = 0; i < finalCount; i++) {
+      for (let j = i + 1; j < finalCount; j++) {
         const dist = tempParticles[i].distanceTo(tempParticles[j]);
-        if (dist < connectionDistance) {
+        if (dist < finalDist) {
           tempLines.push(tempParticles[i]);
           tempLines.push(tempParticles[j]);
         }
@@ -39,7 +49,7 @@ const NeuralNetwork = ({ count = 300, connectionDistance = 3.5 }) => {
 
     const geometry = new THREE.BufferGeometry().setFromPoints(tempLines);
     return [tempParticles, geometry];
-  }, [count, connectionDistance]);
+  }, [finalCount, finalDist]);
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
@@ -51,7 +61,7 @@ const NeuralNetwork = ({ count = 300, connectionDistance = 3.5 }) => {
   return (
     <group>
       {/* Neurons */}
-      <Instances range={count} ref={meshRef}>
+      <Instances range={finalCount} ref={meshRef}>
         <sphereGeometry args={[0.08, 16, 16]} />
         <meshStandardMaterial
           color="#ffffff"
