@@ -88,12 +88,18 @@ function Cloud({ count = 4, radius = 35, words }: { count?: number, radius?: num
 }
 
 export const ThreeCloud: React.FC<{ words: string[] }> = ({ words }) => {
+    // Mobile Check
+    const isMobile = useMemo(() => {
+        if (typeof window !== 'undefined') return window.innerWidth < 768;
+        return false;
+    }, []);
+
     return (
-        <div className="w-full h-[600px] cursor-move"> {/* Increased height */}
-            <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 50], fov: 75 }}> {/* Adjusted FOV and Distance */}
-                <fog attach="fog" args={['#050505', 20, 100]} /> {/* Relaxed Fog */}
+        <div className={`w-full h-[600px] ${isMobile ? '' : 'cursor-move'}`}>
+            <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 50], fov: 75 }}>
+                <fog attach="fog" args={['#050505', 20, 100]} />
                 <Cloud words={words} radius={28} />
-                <TrackballControls noZoom />
+                {!isMobile && <TrackballControls noZoom />}
             </Canvas>
         </div>
     );

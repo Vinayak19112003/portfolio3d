@@ -14,8 +14,8 @@ const NeuralNetwork = ({ count = 300, connectionDistance = 3.5 }) => {
     return false;
   }, []);
 
-  const finalCount = isMobile ? count / 3 : count; // 100 particles on mobile
-  const finalDist = isMobile ? connectionDistance * 1.5 : connectionDistance;
+  const finalCount = isMobile ? count / 6 : count; // 50 particles on mobile (Super lightweight)
+  const finalDist = isMobile ? connectionDistance * 2 : connectionDistance; // Increase dist to keep connections visible
 
   const meshRef = useRef(null);
   const linesRef = useRef(null);
