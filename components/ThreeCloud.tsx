@@ -3,6 +3,7 @@ import React, { useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Text, TrackballControls } from '@react-three/drei';
 import * as THREE from 'three';
+import { useMobile } from '../hooks/useMobile';
 
 function Word({ children, ...props }: any) {
     const color = new THREE.Color();
@@ -89,14 +90,18 @@ function Cloud({ count = 4, radius = 35, words }: { count?: number, radius?: num
 
 export const ThreeCloud: React.FC<{ words: string[] }> = ({ words }) => {
     // Mobile Check
-    const isMobile = useMemo(() => {
-        if (typeof window !== 'undefined') return window.innerWidth < 768;
-        return false;
-    }, []);
+    const isMobile = useMobile();
 
     return (
-        <div className={`w-full h-[600px] ${isMobile ? '' : 'cursor-move'}`}>
-            <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 50], fov: 75 }}>
+        <div
+            className={`w-full h-[600px] ${isMobile ? '' : 'cursor-move'}`}
+            style={{ touchAction: 'pan-y' }}
+        >
+            <Canvas
+                dpr={[1, 2]}
+                camera={{ position: [0, 0, 50], fov: 75 }}
+                style={isMobile ? { pointerEvents: 'none' } : {}} // Let touches pass through on mobile
+            >
                 <fog attach="fog" args={['#050505', 20, 100]} />
                 <Cloud words={words} radius={28} />
                 {!isMobile && <TrackballControls noZoom />}

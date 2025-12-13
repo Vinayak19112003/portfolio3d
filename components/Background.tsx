@@ -4,18 +4,16 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, Instance, Instances, Text } from '@react-three/drei';
 import { EffectComposer, Bloom, Noise, Vignette } from '@react-three/postprocessing';
 import * as THREE from 'three';
+import { useMobile } from '../hooks/useMobile';
 
 // --- Neural Network (AI Theme) ---
 // A complex network of glowing nodes and connections
 const NeuralNetwork = ({ count = 300, connectionDistance = 3.5 }) => {
   // Mobile optimization: Reduce count if screen is small
-  const isMobile = useMemo(() => {
-    if (typeof window !== 'undefined') return window.innerWidth < 768;
-    return false;
-  }, []);
+  const isMobile = useMobile();
 
-  const finalCount = isMobile ? count / 6 : count; // 50 particles on mobile (Super lightweight)
-  const finalDist = isMobile ? connectionDistance * 2 : connectionDistance; // Increase dist to keep connections visible
+  const finalCount = isMobile ? 40 : count; // 40 particles on mobile (Super lightweight)
+  const finalDist = isMobile ? connectionDistance * 2.5 : connectionDistance; // Increase dist to keep connections visible
 
   const meshRef = useRef(null);
   const linesRef = useRef(null);
