@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useMobile } from '../hooks/useMobile';
+import { useIsTouch } from '../hooks/useIsTouch';
 
 interface HolographicCardProps {
     children: React.ReactNode;
@@ -11,6 +12,7 @@ interface HolographicCardProps {
 export const HolographicCard: React.FC<HolographicCardProps> = ({ children, className = "", transparent = false }) => {
     const ref = useRef<HTMLDivElement>(null);
     const isMobile = useMobile();
+    const isTouch = useIsTouch();
 
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -38,9 +40,9 @@ export const HolographicCard: React.FC<HolographicCardProps> = ({ children, clas
     const rotateX = useTransform(mouseY, [-300, 300], [10, -10]);
     const rotateY = useTransform(mouseX, [-300, 300], [-10, 10]);
 
-    // Force zero rotation on mobile to prevent glitching
-    const finalRotateX = isMobile ? 0 : rotateX;
-    const finalRotateY = isMobile ? 0 : rotateY;
+    // Force zero rotation on mobile OR touch (Desktop Mode) to prevent glitching
+    const finalRotateX = (isMobile || isTouch) ? 0 : rotateX;
+    const finalRotateY = (isMobile || isTouch) ? 0 : rotateY;
 
     return (
         <motion.div
