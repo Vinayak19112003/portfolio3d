@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useMobile } from '../hooks/useMobile';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
@@ -49,6 +50,9 @@ const Shape = ({ type, color }: { type: 'icosahedron' | 'octahedron', color: str
 };
 
 export const PlatonicSolids: React.FC<{ type: 'icosahedron' | 'octahedron', color?: string }> = ({ type, color = "#6366f1" }) => {
+    const isMobile = useMobile();
+    if (isMobile) return null;
+
     return (
         <div className="w-16 h-16 md:w-24 md:h-24 absolute -left-4 -top-6 md:-left-8 md:-top-8 pointer-events-none opacity-60">
             <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>

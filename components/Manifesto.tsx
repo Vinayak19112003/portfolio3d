@@ -7,7 +7,7 @@ import { HolographicCard } from './HolographicCard';
 export const Manifesto: React.FC = () => {
   return (
     <section className="py-16 md:py-24 px-6 md:px-12 max-w-6xl mx-auto border-t border-white/5 relative z-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 mb-16 md:mb-24">
+      <div className="flex flex-col md:grid md:grid-cols-2 gap-12 md:gap-16 mb-16 md:mb-24">
 
         {/* Column 1 */}
         <motion.div

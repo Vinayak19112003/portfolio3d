@@ -12,8 +12,8 @@ const NeuralNetwork = ({ count = 300, connectionDistance = 3.5 }) => {
   // Mobile optimization: Reduce count if screen is small
   const isMobile = useMobile();
 
-  const finalCount = isMobile ? 40 : count; // 40 particles on mobile (Super lightweight)
-  const finalDist = isMobile ? connectionDistance * 2.5 : connectionDistance; // Increase dist to keep connections visible
+  const finalCount = isMobile ? 65 : count; // Increased for better visibility (was 40)
+  const finalDist = isMobile ? connectionDistance * 3 : connectionDistance; // Wider connections for sparser points
 
   const meshRef = useRef(null);
   const linesRef = useRef(null);
