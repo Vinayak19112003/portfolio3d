@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Brain, Code2, Globe, Cpu, Terminal, Database, Layers, Workflow, LineChart, Network } from 'lucide-react';
+import { Brain, Code2, Globe, Cpu, Terminal, Database, Layers, Workflow, LineChart, Network, Cloud, Lock } from 'lucide-react';
 
 interface Skill {
     name: string;
@@ -14,39 +14,48 @@ interface Category {
 
 const categories: Category[] = [
     {
-        title: "AI & Data Science",
+        title: "Frontend & Design",
         skills: [
-            { name: "XGBoost / LightGBM", icon: <Brain size={18} /> },
-            { name: "Pandas / NumPy", icon: <Database size={18} /> },
-            { name: "RAG Systems", icon: <Network size={18} /> },
-            { name: "Prompt Eng.", icon: <Code2 size={18} /> }
+            { name: "Next.js 14+", icon: <Globe size={18} /> },
+            { name: "TypeScript", icon: <Code2 size={18} /> },
+            { name: "Tailwind CSS", icon: <Layers size={18} /> },
+            { name: "Framer Motion", icon: <Workflow size={18} /> }
         ]
     },
     {
-        title: "Algo Trading & Web3",
-        skills: [
-            { name: "Pine Script", icon: <LineChart size={18} /> },
-            { name: "Web3.py / Ethers", icon: <Globe size={18} /> },
-            { name: "0x Protocol / Uniswap", icon: <Cpu size={18} /> },
-            { name: "Solidity", icon: <Code2 size={18} /> }
-        ]
-    },
-    {
-        title: "Full Stack Engineering",
+        title: "Backend & Systems",
         skills: [
             { name: "Python / FastAPI", icon: <Terminal size={18} /> },
-            { name: "Next.js / React", icon: <Globe size={18} /> },
-            { name: "Node.js", icon: <Cpu size={18} /> },
-            { name: "Tailwind CSS", icon: <Layers size={18} /> }
+            { name: "Node.js / Express", icon: <Cpu size={18} /> },
+            { name: "Supabase / SQL", icon: <Database size={18} /> },
+            { name: "Redis / Caching", icon: <Layers size={18} /> }
         ]
     },
     {
-        title: "Infrastructure & Ops",
+        title: "AI & Machine Learning",
         skills: [
-            { name: "AWS EC2 / Lambda", icon: <Network size={18} /> },
-            { name: "Docker / CI/CD", icon: <Layers size={18} /> },
-            { name: "WebSockets", icon: <Workflow size={18} /> },
-            { name: "Selenium", icon: <Terminal size={18} /> }
+            { name: "XGBoost / LightGBM", icon: <Brain size={18} /> },
+            { name: "LLM Integration (RAG)", icon: <Network size={18} /> },
+            { name: "Vector Databases", icon: <Database size={18} /> },
+            { name: "Pandas / NumPy", icon: <LineChart size={18} /> }
+        ]
+    },
+    {
+        title: "Trading & Automation",
+        skills: [
+            { name: "Algo Execution", icon: <LineChart size={18} /> },
+            { name: "Smart Contracts", icon: <Code2 size={18} /> },
+            { name: "Web3 Integration", icon: <Globe size={18} /> },
+            { name: "Data Pipelines", icon: <Workflow size={18} /> }
+        ]
+    },
+    {
+        title: "Cloud & DevOps",
+        skills: [
+            { name: "AWS Infrastructure", icon: <Cloud size={18} /> },
+            { name: "Docker / Containers", icon: <Layers size={18} /> },
+            { name: "CI/CD Pipelines", icon: <Workflow size={18} /> },
+            { name: "Security Best Practices", icon: <Lock size={18} /> }
         ]
     }
 ];
@@ -61,14 +70,14 @@ export const Capabilities: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 className="mb-10 sm:mb-16 md:mb-20 text-center max-w-2xl mx-auto"
             >
-                <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-lux mb-4">The Toolkit</h2>
-                <p className="font-serif text-xl sm:text-2xl md:text-4xl text-mist">
-                    Architecting alpha with <span className="text-white italic">precision tools</span>.
-                </p>
+                <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-lux mb-4">Tech Stack</h2>
+                <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-mist">
+                    Production-grade <span className="text-white italic">engineering capability</span>.
+                </h3>
             </motion.div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6">
                 {categories.map((cat, idx) => (
                     <motion.div
                         key={cat.title}
@@ -78,9 +87,9 @@ export const Capabilities: React.FC = () => {
                         className="group"
                     >
                         {/* Category Header */}
-                        <div className="flex items-center gap-3 mb-6 pl-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-lux/50 group-hover:bg-lux group-hover:shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all" />
-                            <h3 className="font-mono text-xs uppercase tracking-widest text-subtle group-hover:text-mist transition-colors">{cat.title}</h3>
+                        <div className="flex items-center gap-2 mb-4 pl-2">
+                            <div className="w-1 h-1 bg-lux rounded-full" />
+                            <h4 className="font-mono text-[10px] uppercase tracking-wider text-subtle">{cat.title}</h4>
                         </div>
 
                         {/* List */}
@@ -88,10 +97,10 @@ export const Capabilities: React.FC = () => {
                             {cat.skills.map((skill) => (
                                 <div
                                     key={skill.name}
-                                    className="px-4 py-4 flex items-center gap-3 border-b border-white/5 last:border-b-0 hover:bg-white/5 transition-colors cursor-default group/item"
+                                    className="px-4 py-3 flex items-center gap-3 border-b border-white/5 last:border-b-0 hover:bg-white/5 transition-colors cursor-default group/item"
                                 >
                                     <span className="text-white/40 group-hover/item:text-lux transition-colors">{skill.icon}</span>
-                                    <span className="font-sans text-sm text-mist group-hover/item:text-white transition-colors">{skill.name}</span>
+                                    <span className="font-sans text-xs text-mist group-hover/item:text-white transition-colors">{skill.name}</span>
                                 </div>
                             ))}
                         </div>

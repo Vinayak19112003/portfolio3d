@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import { Hero } from './components/Hero';
-import { Manifesto } from './components/Manifesto';
+import { Services } from './components/Services';
 import { Projects } from './components/Projects';
-import { PhilosophyQuotes } from './components/PhilosophyQuotes';
 import { Capabilities } from './components/Capabilities';
-import { ReflectionTerminal } from './components/ReflectionTerminal';
-import { ResearchDirections } from './components/ResearchDirections';
+import { Engagement } from './components/Engagement';
 import { Signature } from './components/Signature';
 import SplineBackground from './components/SplineBackground';
 
@@ -27,12 +25,10 @@ const App: React.FC = () => {
             <Hero />
 
             <div className="relative z-10">
-                <Manifesto />
+                <Services />
                 <Projects />
-                <PhilosophyQuotes />
                 <Capabilities />
-                <ReflectionTerminal />
-                <ResearchDirections />
+                <Engagement />
             </div>
 
             <Signature />

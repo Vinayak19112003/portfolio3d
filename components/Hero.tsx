@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TextDecryption } from './TextDecryption';
 import { HolographicCard } from './HolographicCard';
-import { ArrowRight, Github } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const roles = ["AI Engineer", "Algo Trader", "Full Stack Dev"];
 
@@ -32,12 +32,12 @@ export const Hero: React.FC = () => {
                         <span className="w-4 md:w-8 h-[1px] bg-lux/50"></span>
                     </div>
 
-                    <h1 className="font-serif text-2xl sm:text-4xl md:text-6xl lg:text-7xl text-mist leading-[1.2] md:leading-[1.1] mb-4 sm:mb-6 md:mb-8 font-light tracking-tight">
-                        Building ML trading systems <br />
-                        <span className="text-white text-glow">that actually work.</span>
+                    <h1 className="font-serif text-3xl sm:text-5xl md:text-7xl text-mist leading-tight mb-6 sm:mb-8 font-light tracking-tight">
+                        AI Full-Stack Developer <span className="text-white/30 hidden sm:inline">|</span> <br className="sm:hidden" />
+                        <span className="text-white text-glow">Automation & SaaS</span>
                     </h1>
 
-                    <div className="h-8 md:h-12 overflow-hidden mb-8 md:mb-8">
+                    <div className="h-8 md:h-12 overflow-hidden mb-4 sm:mb-6">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={index}
@@ -58,7 +58,7 @@ export const Hero: React.FC = () => {
                         transition={{ delay: 1, duration: 1 }}
                         className="font-serif text-sm sm:text-lg md:text-2xl text-subtle italic max-w-3xl mx-auto leading-relaxed px-2 mb-6 sm:mb-10"
                     >
-                        <TextDecryption text="From 54% win-rate bots to sub-100ms blockchain snipers." />
+                        <TextDecryption text="Affordable, high-quality solutions built for real business impact." />
                     </motion.p>
 
                     <motion.div
@@ -68,10 +68,10 @@ export const Hero: React.FC = () => {
                         className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto"
                     >
                         <button onClick={() => window.scrollTo(0, window.innerHeight)} className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-lux/10 hover:bg-lux/20 text-lux border border-lux/30 rounded-full font-mono text-[10px] sm:text-xs uppercase tracking-widest transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] flex items-center justify-center gap-2">
-                            View Trading Systems <ArrowRight size={14} />
+                            View Projects <ArrowRight size={14} />
                         </button>
-                        <a href="https://github.com/Vinayak19112003" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-full font-mono text-[10px] sm:text-xs uppercase tracking-widest transition-all hover:scale-105 flex items-center justify-center gap-2">
-                            <Github size={14} /> GitHub Profile
+                        <a href="mailto:vinayak@example.com" className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-full font-mono text-[10px] sm:text-xs uppercase tracking-widest transition-all hover:scale-105 flex items-center justify-center gap-2">
+                            Contact / Hire Me
                         </a>
                     </motion.div>
 
