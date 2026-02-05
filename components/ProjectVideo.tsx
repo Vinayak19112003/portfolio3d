@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface ProjectVideoProps {
@@ -7,11 +7,19 @@ interface ProjectVideoProps {
     poster?: string;
 }
 
-export const ProjectVideo: React.FC<ProjectVideoProps> = ({ src, alt, poster }) => {
+export const ProjectVideo: React.FC<ProjectVideoProps> = ({ src, alt }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
-
     const [error, setError] = useState(false);
+
+    // Autoplay on load (muted videos can autoplay)
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.play().catch(() => {
+                // Autoplay blocked, will play on interaction
+            });
+        }
+    }, []);
 
     const handleMouseEnter = () => {
         if (videoRef.current && !error) {
@@ -28,10 +36,22 @@ export const ProjectVideo: React.FC<ProjectVideoProps> = ({ src, alt, poster }) 
         }
     };
 
+    // Touch support for mobile
+    const handleTouchStart = () => {
+        if (videoRef.current && !error) {
+            if (videoRef.current.paused) {
+                videoRef.current.play().catch(e => console.warn("Video play failed:", e));
+                setIsPlaying(true);
+            } else {
+                videoRef.current.pause();
+                setIsPlaying(false);
+            }
+        }
+    };
+
     if (error) {
         return (
             <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 bg-charcoal group">
-                <img src={poster} alt={alt} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/60">
                     <p className="text-xs font-mono text-red-400">Video source not found</p>
                 </div>
@@ -44,6 +64,7 @@ export const ProjectVideo: React.FC<ProjectVideoProps> = ({ src, alt, poster }) 
             className="relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 bg-charcoal group cursor-pointer"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onTouchStart={handleTouchStart}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -56,12 +77,10 @@ export const ProjectVideo: React.FC<ProjectVideoProps> = ({ src, alt, poster }) 
                 muted
                 loop
                 playsInline
-                poster={poster}
+                autoPlay
                 aria-label={alt}
                 onError={() => setError(true)}
             />
-
-
 
             {/* Aesthetic Border Glow */}
             <div className="absolute inset-0 border border-white/5 rounded-xl pointer-events-none group-hover:border-lux/30 transition-colors duration-500" />
