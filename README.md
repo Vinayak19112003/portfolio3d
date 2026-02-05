@@ -1,4 +1,4 @@
-# Vinayak Deshmukh - Logic Craftsman
+# Vinayak Deshmuk - Logic Craftsman
 
 > "I don't just use AI — I explore its mind to restructure human logic."
 

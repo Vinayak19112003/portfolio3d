@@ -61,7 +61,7 @@ export const Engagement: React.FC = () => {
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                         <a
-                            href="mailto:vinayak@example.com"
+                            href="mailto:vinayak19112003@gmail.com"
                             className="px-8 py-4 bg-lux hover:bg-lux/90 text-white font-mono text-xs uppercase tracking-widest rounded-full transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(99,102,241,0.4)] flex items-center gap-3"
                         >
                             <Mail size={16} /> Contact Me

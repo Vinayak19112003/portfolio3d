@@ -76,7 +76,7 @@ export const Services: React.FC = () => {
                 className="mt-16 text-center"
             >
                 <p className="text-sm text-subtle font-mono mb-4">Need a custom solution?</p>
-                <a href="mailto:vinayak@example.com" className="inline-flex items-center gap-2 text-lux hover:text-white transition-colors text-sm uppercase tracking-widest border-b border-lux/30 pb-1 hover:border-white">
+                <a href="mailto:vinayak19112003@gmail.com" className="inline-flex items-center gap-2 text-lux hover:text-white transition-colors text-sm uppercase tracking-widest border-b border-lux/30 pb-1 hover:border-white">
                     Discuss Your Project <ArrowRight size={14} />
                 </a>
             </motion.div>

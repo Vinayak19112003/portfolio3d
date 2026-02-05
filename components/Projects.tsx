@@ -15,6 +15,7 @@ interface CaseStudy {
     image: string;
     video?: string;
     badge?: string;
+    link?: string;
 }
 
 const caseStudies: CaseStudy[] = [
@@ -39,18 +40,22 @@ const caseStudies: CaseStudy[] = [
         outcome: "Deployed production SaaS with seamless AI parsing, helping traders identify emotional biases.",
         tools: ["Next.js 15", "Google Gemini AI", "Supabase", "Stripe"],
         badge: "PRODUCTION SAAS",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop",
+        video: "/videos/tradezend-demo.mp4",
+        link: "https://github.com/Vinayak19112003/tradezend"
     },
     {
         id: 3,
-        title: "Mempool Sniper Bot",
-        subtitle: "Ultra-Low Latency Execution",
-        problem: "Profitable on-chain opportunities disappear in milliseconds due to MEV bots.",
-        solution: "Developed a Rust/TypeScript sniper monitoring the mempool via WebSockets for <100ms reaction time.",
-        outcome: "Successfully front-ran transactions with zero-block lag on 0x Protocol.",
-        tools: ["TypeScript", "WebSockets", "AWS EC2", "0x Protocol"],
-        badge: "INFRASTRUCTURE",
-        image: "https://images.unsplash.com/photo-1642104704074-907c0698cbd9?q=80&w=1000&auto=format&fit=crop"
+        title: "Reality Check",
+        subtitle: "Financial Wellness PWA",
+        problem: "People struggle to understand the true cost of purchases, leading to impulse spending and poor financial habits.",
+        solution: "Built a Progressive Web App that converts purchase costs into 'hours worked', helping users visualize spending impact and resist impulse buys.",
+        outcome: "Deployed production PWA with savings tracking, impulse-buy resistance tools, and goal-setting features. Built for Bolt Hackathon.",
+        tools: ["React", "Vite", "Supabase", "Recharts", "Zustand"],
+        badge: "HACKATHON",
+        image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1600&auto=format&fit=crop",
+        video: "/videos/realitycheck-demo.mp4",
+        link: "https://neuraknigths.xyz/"
     }
 ];
 
@@ -128,6 +133,17 @@ export const Projects: React.FC = () => {
                                     </span>
                                 ))}
                             </div>
+
+                            {study.link && (
+                                <a
+                                    href={study.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-lux/10 hover:bg-lux/20 text-lux border border-lux/30 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] mt-4"
+                                >
+                                    View Project <ExternalLink size={12} />
+                                </a>
+                            )}
                         </div>
                     </motion.div>
                 ))}
@@ -139,7 +155,7 @@ export const Projects: React.FC = () => {
                 className="text-center pt-16"
             >
                 <a href="https://github.com/Vinayak19112003" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-full font-mono text-xs uppercase tracking-widest transition-all hover:scale-105">
-                    View More Code on GitHub <ExternalLink size={14} />
+                    View More Projects on My GitHub <ExternalLink size={14} />
                 </a>
             </motion.div>
 

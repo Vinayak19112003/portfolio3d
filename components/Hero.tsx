@@ -28,7 +28,7 @@ export const Hero: React.FC = () => {
                 >
                     <div className="font-mono text-[10px] md:text-sm text-lux tracking-[0.3em] uppercase mb-4 md:mb-6 flex items-center justify-center gap-3">
                         <span className="w-4 md:w-8 h-[1px] bg-lux/50"></span>
-                        <span>Vinayak Deshmukh</span>
+                        <span>Vinayak Deshmuk</span>
                         <span className="w-4 md:w-8 h-[1px] bg-lux/50"></span>
                     </div>
 
@@ -70,7 +70,7 @@ export const Hero: React.FC = () => {
                         <button onClick={() => window.scrollTo(0, window.innerHeight)} className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-lux/10 hover:bg-lux/20 text-lux border border-lux/30 rounded-full font-mono text-[10px] sm:text-xs uppercase tracking-widest transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] flex items-center justify-center gap-2">
                             View Projects <ArrowRight size={14} />
                         </button>
-                        <a href="mailto:vinayak@example.com" className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-full font-mono text-[10px] sm:text-xs uppercase tracking-widest transition-all hover:scale-105 flex items-center justify-center gap-2">
+                        <a href="mailto:vinayak19112003@gmail.com" className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-full font-mono text-[10px] sm:text-xs uppercase tracking-widest transition-all hover:scale-105 flex items-center justify-center gap-2">
                             Contact / Hire Me
                         </a>
                     </motion.div>

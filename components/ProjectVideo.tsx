@@ -62,12 +62,7 @@ export const ProjectVideo: React.FC<ProjectVideoProps> = ({ src, alt, poster }) 
                 onError={() => setError(true)}
             />
 
-            {/* Overlay / Play Button Hint */}
-            <div className={`absolute inset-0 bg-black/40 flex items-center justify-center transition-opacity duration-300 ${isPlaying ? 'opacity-0' : 'opacity-100'}`}>
-                <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Play size={20} className="text-white fill-white ml-1" />
-                </div>
-            </div>
+
 
             {/* Aesthetic Border Glow */}
             <div className="absolute inset-0 border border-white/5 rounded-xl pointer-events-none group-hover:border-lux/30 transition-colors duration-500" />

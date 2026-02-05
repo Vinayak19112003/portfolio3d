@@ -6,7 +6,7 @@ export default function SplineBackground() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full z-0 h-[100dvh]">
+        <div className="fixed top-0 left-0 w-full h-full z-0 h-[100dvh] hidden md:block">
             {/* Overlay to catch interactions before load if needed */}
             {!isLoaded && <div className="absolute inset-0 z-10 bg-obsidian transition-opacity duration-1000 pointer-events-none" />}
 
