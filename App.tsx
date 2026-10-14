@@ -5,6 +5,7 @@ import { ProjectVisual } from "./components/ProjectVisual";
 import { ProjectEnquiry } from "./components/ProjectEnquiry";
 import { InstagramReel } from "./components/InstagramReel";
 import { OpenSourceSection, OpenSourcePage } from "./components/OpenSource";
+import { AutoplayFilm } from "./components/AutoplayFilm";
 
 export const projectPath = (project: Project) => `/work/${project.id}/`;
 const findProject = (id: string) => projects.find((project) => project.id === id)!;
@@ -24,12 +25,12 @@ function GroomScreen({ priority = false }: { priority?: boolean }) {
 }
 function Feature({ project, index }: { project: Project; index: string }) {
   return <article className={`feature feature-${project.id}`}>
-    <a className="feature-art" href={projectPath(project)} aria-label={`Explore ${project.title}`}>
+    {project.video ? <div className="feature-art feature-video"><AutoplayFilm src={project.video} poster={project.poster} title={`${project.title} client film`}/><a className="art-action" href={projectPath(project)} aria-label={`Explore ${project.title}`}><ArrowUpRight size={22}/></a></div> : <a className="feature-art" href={projectPath(project)} aria-label={`Explore ${project.title}`}>
       {project.id === "groom-room" ? <GroomScreen/> : <ProjectVisual project={project}/>}
       <span className="art-action">{project.instagram ? <Play size={18}/> : <ArrowUpRight size={22}/>}</span>
-    </a>
+    </a>}
     <div className="feature-copy"><div className="project-meta"><span>{index} / {project.label}</span><span>{project.instagram ? "FILM & MOTION" : project.category.toUpperCase()}</span></div>
-      <a href={projectPath(project)}><h3>{project.title}<ArrowUpRight/></h3></a><p>{project.subtitle}</p>
+      <a href={projectPath(project)}><h3>{project.title}<ArrowUpRight/></h3></a>{project.client && <p className="client-credit">Client: {project.client}</p>}<p>{project.subtitle}</p>
     </div>
   </article>;
 }
@@ -61,12 +62,13 @@ function Home() {
 }
 function FilmPlayer({ project }: { project: Project }) {
   const [playing, setPlaying] = useState(false);
+  if (project.video) return <div className="film-player"><div className="film-player-stage"><AutoplayFilm src={project.video} poster={project.poster} title={`${project.title} client film`}/></div><div className="instagram-link"><p>Client: {project.client}. Original 35-second promo.</p><a className="text-link" href={project.instagram} target="_blank" rel="noopener noreferrer">Watch on Instagram<ArrowUpRight size={17}/></a></div></div>;
   return <div className="film-player"><div className="film-player-stage">{playing ? <InstagramReel url={project.instagram!} title={project.title} poster={project.poster}/> : <button className="film-load" onClick={() => setPlaying(true)} aria-label={`Load ${project.title} Instagram reel`}><ProjectVisual project={project}/><span className="film-play"><span className="circle"><Play fill="currentColor" size={20}/></span>Play Instagram reel</span></button>}</div><div className="instagram-link"><p>Film hosted on Instagram. Playback may require an Instagram login.</p><a className="text-link" href={project.instagram} target="_blank" rel="noopener noreferrer">Watch on Instagram <ArrowUpRight size={17}/></a></div></div>;
 }
 function CaseStudy({ project }: { project: Project }) {
   const next = projects[(projects.findIndex(p => p.id === project.id) + 1) % projects.length];
   return <article className={`case-study case-${project.id}`}>
-    <div className="case-header shell"><a className="back-link" href="/#work"><ArrowLeft size={16}/> All selected work</a><div className="project-meta"><span>{project.label}</span><span>{project.category}</span></div><h1>{project.title}</h1><p className="case-subtitle">{project.subtitle}</p><div className="case-intro"><p>{project.description}</p><div className="case-actions">{project.live && <a className="button button-ivory" href={project.live} target="_blank" rel="noopener noreferrer">{project.instagram ? "Visit brand website" : project.id === "tracereel" ? "Explore interactive showcase" : "Explore live demo"}<ArrowUpRight size={17}/></a>}{project.source && <a className="button button-ivory" href={project.source} target="_blank" rel="noopener noreferrer">Explore the source<ArrowUpRight size={17}/></a>}{project.instagram && <a className="button button-ivory" href="#film">Watch the film<ArrowDown size={17}/></a>}</div></div></div>
+    <div className="case-header shell"><a className="back-link" href="/#work"><ArrowLeft size={16}/> All selected work</a><div className="project-meta"><span>{project.label}</span><span>{project.category}</span></div><h1>{project.title}</h1><p className="case-subtitle">{project.subtitle}</p>{project.client && <p className="case-client">Client: <a href={project.live} target="_blank" rel="noopener noreferrer">{project.client}<ArrowUpRight size={15}/></a></p>}<div className="case-intro"><p>{project.description}</p><div className="case-actions">{project.live && <a className="button button-ivory" href={project.live} target="_blank" rel="noopener noreferrer">{project.instagram ? "Visit brand website" : project.id === "tracereel" ? "Explore interactive showcase" : "Explore live demo"}<ArrowUpRight size={17}/></a>}{project.source && <a className="button button-ivory" href={project.source} target="_blank" rel="noopener noreferrer">Explore the source<ArrowUpRight size={17}/></a>}{project.instagram && <a className="button button-ivory" href="#film">Watch the film<ArrowDown size={17}/></a>}</div></div></div>
     <div className="case-showcase shell" id={project.instagram ? "film" : "project-visual"}>{project.instagram ? <FilmPlayer project={project}/> : <div className={`case-art case-art-${project.id}`}>{project.id === "groom-room" ? <GroomScreen priority/> : <ProjectVisual project={project}/>}</div>}</div>
     <div className="case-details shell"><aside><p className="eyebrow">Inside the project</p><h2>Purpose.<br/>Process.<br/><em>Details.</em></h2><a className="text-link" href="/#contact">Have something in mind?<ArrowUpRight size={16}/></a></aside><div className="case-story"><section><span className="eyebrow">01 / The brief</span><h2>A problem worth solving.</h2><p>{project.problem}</p></section><section><span className="eyebrow">02 / The approach</span><h2>Making the idea work.</h2><p>{project.approach}</p></section><section><span className="eyebrow">03 / The delivery</span><h2>What came together.</h2><ul>{project.deliverables.map(item => <li key={item}><Plus size={15}/>{item}</li>)}</ul></section>{project.caveat && <p className="project-note">{project.caveat}</p>}</div></div>
     <a className="next-project shell" href={projectPath(next)}><span className="eyebrow">Up next / {next.label}</span><span>{next.title}<ArrowUpRight/></span></a>

@@ -23,7 +23,7 @@ Deploy `dist/` to static hosting. Production build settings remain `npm run buil
 - Groom Room by Asha: live booking-app demo, with clearly identified simulated payments/messages. No private source link.
 - TraceReel: public engineering project, with TakeOne attribution and integration limits.
 - MathLens: interactive-learning MVP case study; source repository is private and not linked.
-- Branzyne promotion: supplied 35-second film only, not a repository showcase. Its internal brand claims are not Vinayak’s results.
+- Branzyne: confirmed client brand-film work, using the supplied original 35-second promo with muted autoplay and an Instagram link. Its internal brand claims are not Vinayak’s results.
 - Neo: existing finished introduction film with actual silhouette frame as the cover.
 
 Trading content and footage are excluded. No private repository links are exposed. No invented client metrics, awards, or testimonials.
@@ -36,15 +36,15 @@ The enquiry form prepares an email draft and offers copy-to-clipboard with a man
 
 ## Media
 
-Films are displayed through Instagram’s official embed script, loaded only after the visitor selects “Play Instagram reel” on the film’s dedicated page. A persistent “Watch on Instagram” link works even if the embed is unavailable. The MP4 players, download buttons, and hosted MP4 assets have been removed. Original film copies remain in Git history and the previous delivery package. Posters remain extracted from the actual films and converted to WebP.
+Branzyne uses the supplied original MP4, unchanged byte for byte, for native muted autoplay. The file is restored from the existing Git history. Both the homepage preview and the client page load it only when visible, pause it outside the viewport, and provide native playback and sound controls. Reduced-motion preferences disable automatic playback. Browser autoplay restrictions leave manual controls available. The original Instagram link remains visible on the client page.
 
-Instagram controls embed availability and playback. The reels must remain public with embedding allowed; browser restrictions or Instagram sign-in requirements can prevent an embedded player from loading.
+Neo remains an Instagram reel, loaded only after the visitor chooses playback. Its direct Instagram link remains available if the embed fails. Instagram controls embed availability and playback; sign-in or browser restrictions can affect it.
 
 TraceReel’s cover is a screenshot of its public interactive pitching site. MathLens uses a custom illustrative graphic, not a claimed product screenshot. Groom Room uses a captured screenshot of the actual public booking demo, presented inside a browser frame.
 
 ## Accessibility and motion
 
-Native links and buttons, labelled form fields, a skip link, direct Instagram fallback links, mobile navigation, normal cursors, and reduced-motion styling. No forced autoplay or scroll hijacking.
+Native links and buttons, labelled form fields, a skip link, direct Instagram fallback links, mobile navigation, normal cursors, and reduced-motion styling. Muted autoplay is limited to the explicitly requested Branzyne client promo. No scroll hijacking.
 
 ## Validation limits
 

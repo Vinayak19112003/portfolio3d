@@ -14,6 +14,8 @@ test('prerendered homepage hydrates, navigation works, and enquiry prepares an e
  const dom=new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',{url:'https://www.vinayakdeshmuk.in/'});
  for(const key of ['window','document','navigator','HTMLElement','HTMLInputElement','HTMLTextAreaElement','HTMLSelectElement','FormData','Event','MouseEvent'])Object.defineProperty(globalThis,key,{value:dom.window[key],configurable:true,writable:true});
  globalThis.IS_REACT_ACT_ENVIRONMENT=true;
+ dom.window.HTMLMediaElement.prototype.play=function(){return Promise.resolve();};
+ dom.window.HTMLMediaElement.prototype.pause=function(){};
  const {renderToString}=require('react-dom/server');
  const {hydrateRoot}=require('react-dom/client');
  const errors=[];
@@ -28,8 +30,10 @@ test('prerendered homepage hydrates, navigation works, and enquiry prepares an e
  assert.equal(document.querySelectorAll('img[src="/images/groom-interface.jpg"]').length,1, 'Groom Room preview appears once on the homepage');
  assert.equal(document.querySelectorAll('h1').length,1);
  assert.equal(document.querySelector('script[src="https://www.instagram.com/embed.js"]'),null);
- const paths=new Set([...document.querySelectorAll('.feature-art')].map(a=>a.getAttribute('href')));
+ const paths=new Set([...document.querySelectorAll('a.feature-art, .feature-video a.art-action')].map(a=>a.getAttribute('href')));
  assert.equal(paths.size,5);
+ assert.ok(!paths.has(null));
+ assert.match(document.querySelector('.feature-branzyne-film .client-credit').textContent,/Client: Branzyne/);
  for(const a of document.querySelectorAll('a[href^="#"], a[href^="/#"]'))assert.ok(document.getElementById(a.hash.slice(1)),a.href);
  for(const a of document.querySelectorAll('a[target="_blank"]'))assert.match(a.rel,/noopener/);
  assert.doesNotMatch(document.body.textContent,/TradeZend|Polymarket|History.?s Minds|win rate/i);
@@ -48,7 +52,7 @@ test('prerendered homepage hydrates, navigation works, and enquiry prepares an e
  assert.match(new URL(email.href).searchParams.get('body'),/Test Client/);
  assert.match(document.querySelector('.form-note').textContent,/does not submit or store/);
  await click(document.querySelector('.copy-button'));
- assert.match(document.querySelector('[role="status"]').textContent,/Copy is unavailable/);
+ assert.match(document.querySelector('.prepared-brief [role="status"]').textContent,/Copy is unavailable/);
  await act(async()=>{const s=document.querySelector('[name="service"]');s.value='Website or application';s.dispatchEvent(new Event('change',{bubbles:true}));});
  assert.equal(document.querySelector('.prepared-brief'),null);
  await act(async()=>root.unmount());
@@ -61,6 +65,8 @@ test('direct project routes hydrate and load only the correct Instagram reel on 
  for(const [id,title,reel] of [['neo-film','Meet Neo','DeeDdWPo_aR'],['branzyne-film','Branzyne — Brand Promo','Ded3kOWTovl'],['groom-room','Groom Room by Asha'],['tracereel','TraceReel'],['mathlens','MathLens']]){
   const dom=new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',{url:`https://www.vinayakdeshmuk.in/work/${id}/`});
   for(const key of ['window','document','navigator','HTMLElement','Event','MouseEvent'])Object.defineProperty(globalThis,key,{value:dom.window[key],configurable:true,writable:true});
+  dom.window.HTMLMediaElement.prototype.play=function(){return Promise.resolve();};
+  dom.window.HTMLMediaElement.prototype.pause=function(){};
   document.getElementById('root').innerHTML=renderToString(React.createElement(App,{initialPath:`/work/${id}/`}));
   const errors=[];let root;
   await act(async()=>{root=hydrateRoot(document.getElementById('root'),React.createElement(App),{onRecoverableError:e=>errors.push(e.message)});});
@@ -68,10 +74,20 @@ test('direct project routes hydrate and load only the correct Instagram reel on 
   assert.equal(document.querySelector('h1').textContent,title);
   if(id==='tracereel') assert.equal(document.querySelector('.case-actions a').href,'https://trace-to-smooth-showcase.lovable.app/');
   assert.equal(document.querySelector('.back-link').getAttribute('href'),'/#work');
-  assert.equal(document.querySelector('video'),null);
+  if(id==='branzyne-film') assert.equal(document.querySelector('.instagram-link a').href,'https://www.instagram.com/reel/Ded3kOWTovl/');
+  if(id==='branzyne-film'){
+   const video=document.querySelector('video');
+   assert.ok(video);
+   assert.equal(video.getAttribute('src'),'/media/branzyne-promo.mp4');
+   assert.equal(video.muted,true);
+   assert.equal(video.autoplay,true);
+   assert.equal(video.controls,true);
+   assert.equal(video.playsInline,true);
+   assert.match(document.querySelector('.case-client').textContent,/Client: Branzyne/);
+  } else assert.equal(document.querySelector('video'),null);
   assert.equal(document.querySelector('a[download]'),null);
   assert.equal(document.querySelector('script[src="https://www.instagram.com/embed.js"]'),null);
-  if(reel){
+  if(reel && id!=='branzyne-film'){
    const url=`https://www.instagram.com/reel/${reel}/`;
    assert.equal(document.querySelector('.instagram-link a').href,url);
    await act(async()=>document.querySelector('.film-load').dispatchEvent(new MouseEvent('click',{bubbles:true})));
@@ -92,7 +108,7 @@ test('public media references exist and private repositories are excluded',()=>{
  const app=readFileSync('App.tsx','utf8');
  for(const match of (data+app).matchAll(/['"]\/(images|media)\/([^'"]+)['"]/g))assert.ok(existsSync('public/'+match[1]+'/'+match[2]),match[0]);
  assert.doesNotMatch(data,/github\.com\/Vinayak19112003\/(branzyne|plato-reels|agent-video-studio|happy-paws-slots)/i);
- assert.doesNotMatch(data,/\/media\/.*\.mp4/);
+ assert.equal([...data.matchAll(/\/media\/[^"']+\.mp4/g)].map(m=>m[0]).join(),'/media/branzyne-promo.mp4');
 });
 
 test('open-source page hydrates with unique upstream PR evidence and both supplied SpoonOS posts',async()=>{
@@ -117,5 +133,43 @@ test('open-source page hydrates with unique upstream PR evidence and both suppli
  assert.doesNotMatch(document.body.textContent,/prize|winner|win rate|trading/i);
  assert.equal(document.querySelector('script[src]'),null,'Social links must not load a third-party SDK');
  await act(async()=>root.unmount());
+ dom.window.close();
+});
+
+test('Branzyne video waits for visibility, pauses outside the viewport, and respects reduced motion',async()=>{
+ const dom=new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',{url:'https://www.vinayakdeshmuk.in/work/branzyne-film/'});
+ for(const key of ['window','document','navigator','HTMLElement','Event','MouseEvent'])Object.defineProperty(globalThis,key,{value:dom.window[key],configurable:true,writable:true});
+ let observerCallback;let disconnected=false;let motionChange;
+ class Observer{constructor(callback){observerCallback=callback;}observe(){}disconnect(){disconnected=true;}}
+ window.IntersectionObserver=Observer;
+ globalThis.IntersectionObserver=Observer;
+ const preference={matches:false,addEventListener:(_,callback)=>{motionChange=callback;},removeEventListener:()=>{}};
+ window.matchMedia=()=>preference;
+ let playCalls=0;let pauseCalls=0;
+ dom.window.HTMLMediaElement.prototype.play=function(){playCalls++;return Promise.resolve();};
+ dom.window.HTMLMediaElement.prototype.pause=function(){pauseCalls++;};
+ const {createRoot}=require('react-dom/client');
+ const root=createRoot(document.getElementById('root'));
+ await act(async()=>root.render(React.createElement(App)));
+ const video=document.querySelector('video');
+ assert.equal(video.getAttribute('src'),null);
+ assert.equal(playCalls,0);
+ await act(async()=>observerCallback([{isIntersecting:true,intersectionRatio:0.1}]));
+ assert.equal(video.getAttribute('src'),null);
+ await act(async()=>observerCallback([{isIntersecting:true,intersectionRatio:0.5}]));
+ assert.equal(video.getAttribute('src'),'/media/branzyne-promo.mp4');
+ assert.equal(playCalls,1);
+ assert.equal(video.muted,true);
+ await act(async()=>observerCallback([{isIntersecting:false,intersectionRatio:0}]));
+ assert.ok(pauseCalls>0);
+ assert.equal(video.autoplay,false,'Offscreen video must not request autoplay');
+ preference.matches=true;
+ await act(async()=>motionChange());
+ await act(async()=>observerCallback([{isIntersecting:true,intersectionRatio:0.6}]));
+ assert.equal(playCalls,1,'Reduced motion must prevent automatic replay');
+ assert.equal(video.autoplay,false);
+ assert.equal(video.controls,true,'Manual playback remains available');
+ await act(async()=>root.unmount());
+ assert.equal(disconnected,true);
  dom.window.close();
 });

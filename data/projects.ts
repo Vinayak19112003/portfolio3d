@@ -14,6 +14,8 @@ export type Project = {
   source?: string;
   instagram?: string;
   poster?: string;
+  client?: string;
+  video?: string;
 };
 // Public-facing work only. Never add private source URLs here.
 export const projects: Project[] = [
@@ -98,9 +100,11 @@ export const projects: Project[] = [
     title: "Branzyne — Brand Promo",
     subtitle: "A digital agency, introduced in 35 seconds.",
     category: "Video & motion",
-    label: "Brand promotion film",
+    label: "Client brand film",
+    client: "Branzyne",
+    video: "/media/branzyne-promo.mp4",
     description:
-      "A vertical promotional film for branzyne.com, combining animated typography, purple brand lighting, and moving website previews.",
+      "A vertical promotional film created for my client Branzyne, combining animated typography, purple brand lighting, and moving website previews.",
     problem:
       "Introduce a digital agency’s offer in a short, cohesive video that works on a vertical screen.",
     approach:

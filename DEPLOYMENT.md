@@ -6,6 +6,6 @@ The build runs TypeScript, Vite, and `scripts/prerender.mjs`. It emits complete 
 
 Canonical origin: https://www.vinayakdeshmuk.in. The root domain redirects to www through the existing domain configuration. Individual metadata and the sitemap are generated during build; update the origin in the prerender script and index template together if the domain changes.
 
-Verification: direct-load and refresh case-study URLs, use browser Back, open the mobile menu, activate each Instagram film, and prepare an enquiry. Check keyboard focus, reduced motion, and narrow-width layout. Instagram is loaded only after a visitor chooses playback; external reel links remain available if an embed is blocked.
+Verification: direct-load and refresh case-study URLs, use browser Back, open the mobile menu, activate each Instagram film, and prepare an enquiry. Check keyboard focus, reduced motion, and narrow-width layout. Neo’s Instagram player loads only after a visitor chooses playback. Branzyne’s original MP4 starts muted when visible, pauses outside the viewport, and respects reduced motion. Verify its actual playback, pause/sound controls, and the retained Instagram link.
 
 The enquiry form prepares a mailto draft; it does not send or store enquiries. Budget and timeline fields remain optional.
