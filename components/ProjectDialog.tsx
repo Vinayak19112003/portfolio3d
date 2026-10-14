@@ -32,7 +32,6 @@ export function ProjectDialog({
     >
       <div className="dialog-content">
         <button
-          autoFocus
           className="dialog-close"
           onClick={onClose}
           aria-label="Close project details"
