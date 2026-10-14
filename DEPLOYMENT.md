@@ -1,46 +1,11 @@
-# How to Deploy to Vercel
+# Deployment
 
-Yes! This project is a standard **Vite + React** application, which Vercel hosts natively with zero configuration.
+Run `npm ci`, `npm test`, and `npm run build`. Deploy the `dist` directory.
 
-## Steps to Deploy
+This remains a Vite static site. It needs no environment variables or API keys. The former browser-side Gemini key definition has been removed. No server enquiry submission is configured: enquiries open the visitor’s email application.
 
-### 1. Push to GitHub
-Make sure your latest code is pushed to your GitHub repository.
+Before promoting to the custom domain, review at widths 360, 390, 768 and 1440 px; check menu, filters, project dialogs, native video playback, email preparation and copy fallback. Verify Escape closes dialogs and focus returns to the opener. Test reduced-motion mode and keyboard navigation.
 
-### 2. Import into Vercel
-1.  Go to the [Vercel Dashboard](https://vercel.com/dashboard).
-2.  Click **"Add New..."** -> **"Project"**.
-3.  Select your GitHub repository (`vinayak-deshmuk-_-ai-explorer`).
-4.  Click **"Import"**.
+Supply Neo’s actual Instagram video URL if an external video destination is wanted. Set production canonical, Open Graph and sitemap URLs together if the domain changes.
 
-### 3. Configure Build Settings
-Vercel should automatically detect the correct settings:
-- **Framework Preset**: `Vite`
-- **Root Directory**: `./`
-- **Build Command**: `npm run build`
-- **Output Directory**: `dist`
-
-### 4. Application Environment Variables (Important!)
-Your project uses Google GenAI, so you must add your API Key in Vercel.
-1.  In the Vercel Project Settings, find **"Environment Variables"**.
-2.  Add a new variable:
-    - **Key**: `VITE_API_KEY` (or `API_KEY`)
-    - **Value**: Your actual Google Gemini API Key (starts with `AIza...`)
-3.  Click **Add**.
-
-### 5. Deploy
-Click **"Deploy"**. Vercel will build your site and provide a live URL (e.g., `vinayak-portfolio.vercel.app`).
-
----
-
-## Troubleshooting
-
-### "Black Screen" on Production?
-If you see a black screen on the live site but it works locally:
-- It might be a GPU issue on some devices.
-- Converting the "Warp Tunnel" to use **Native Glow** (which we just did!) ensures it works on almost all devices, including mobiles.
-
-### API Issues?
-If the Chat/AI features don't work:
-- Check that you added the `VITE_API_KEY` in Vercel.
-- Check the browser console (`F12`) for errors.
+Keep videos on static hosting or move them to a durable media CDN; never use expiring download links as video sources.
