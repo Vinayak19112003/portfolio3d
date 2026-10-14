@@ -52,7 +52,7 @@ Automated UI checks use jsdom and cover server-rendered hydration, direct projec
 
 ## Page architecture
 
-The homepage leads with TraceReel and Neo at equal visual weight, followed by smaller Groom Room, MathLens, and Branzyne cards. Each project has a native `/work/<id>/` URL. The build prerenders the homepage, five case studies, and a 404 page into complete HTML with page-specific titles, descriptions, canonical URLs, Open Graph data, and a sitemap. React hydrates the same markup for forms, navigation, and click-to-load films. Native page navigation supports browser history and direct refresh without a router or catch-all rewrite.
+The homepage separates work into Websites & coding (TraceReel, Groom Room, MathLens), Video editing (Branzyne, Neo), and Open source. Category links jump directly to each section. Projects within each group have equal-size previews; descriptions and service names use plain language. Each project has a native `/work/<id>/` URL. The build prerenders the homepage, five case studies, and a 404 page into complete HTML with page-specific titles, descriptions, canonical URLs, Open Graph data, and a sitemap. React hydrates the same markup for forms, navigation, and click-to-load films. Native page navigation supports browser history and direct refresh without a router or catch-all rewrite.
 
 The design uses charcoal, warm ivory, vermilion, Manrope, DM Sans, and Instrument Serif. Responsive layouts switch at 1050px and 700px; motion respects `prefers-reduced-motion`. Budget and timeline fields are optional and collapsed by default.
 

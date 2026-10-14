@@ -24,9 +24,11 @@ test('prerendered homepage hydrates, navigation works, and enquiry prepares an e
  await act(async()=>{root=hydrateRoot(document.getElementById('root'),React.createElement(App),{onRecoverableError:e=>errors.push(e.message)});});
  assert.deepEqual(errors,[]);
  assert.equal(document.querySelectorAll('.feature').length,5);
- assert.deepEqual([...document.querySelectorAll('.work-leads .feature h3')].map(el=>el.textContent),['TraceReel','Meet Neo']);
- assert.ok(document.querySelector('.support-grid .feature-groom-room'));
- assert.equal(document.querySelector('.work-leads .feature-groom-room'),null);
+ assert.deepEqual([...document.querySelectorAll('#coding .feature h3')].map(el=>el.textContent),['TraceReel','Groom Room by Asha','MathLens']);
+ assert.deepEqual([...document.querySelectorAll('#video-editing .feature h3')].map(el=>el.textContent),['Branzyne — Brand Promo','Meet Neo']);
+ assert.equal(document.querySelectorAll('#coding video').length,0);
+ assert.equal(document.querySelectorAll('#video-editing video').length,1);
+ assert.deepEqual([...document.querySelectorAll('.work-categories a')].map(el=>el.hash),['#coding','#video-editing','#open-source']);
  assert.equal(document.querySelectorAll('img[src="/images/groom-interface.jpg"]').length,1, 'Groom Room preview appears once on the homepage');
  assert.equal(document.querySelectorAll('h1').length,1);
  assert.equal(document.querySelector('script[src="https://www.instagram.com/embed.js"]'),null);
