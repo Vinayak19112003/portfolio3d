@@ -216,11 +216,11 @@ export default function App() {
                   <button
                     className="project-image-button"
                     onClick={(e) => openProject(p, e.currentTarget)}
-                    aria-label={(p.video ? "Watch " : "Explore ") + p.title}
+                    aria-label={(p.instagram ? "Watch " : "Explore ") + p.title}
                   >
                     <ProjectVisual project={p} />
                     <span className="project-action">
-                      {p.video ? "Watch film" : "Explore project"}{" "}
+                      {p.instagram ? "Watch film" : "Explore project"}{" "}
                       <ArrowUpRight size={16} />
                     </span>
                   </button>

@@ -12,7 +12,7 @@ export type Project = {
   caveat?: string;
   live?: string;
   source?: string;
-  video?: string;
+  instagram?: string;
   poster?: string;
 };
 // Public-facing work only. Never add private source URLs here.
@@ -113,7 +113,7 @@ export const projects: Project[] = [
     caveat:
       "Presented as a video-editing sample. Brand statistics, testimonials, and offers appearing inside the supplied film belong to its promotional content and are not portfolio results for Vinayak.",
     live: "https://www.branzyne.com/",
-    video: "/media/branzyne-promo.mp4",
+    instagram: "https://www.instagram.com/reel/Ded3kOWTovl/",
     poster: "/images/branzyne-poster.webp",
   },
   {
@@ -136,7 +136,7 @@ export const projects: Project[] = [
       "Voice and music treatment",
       "Vertical short-form editing and final delivery",
     ],
-    video: "/media/neo-introduction.mp4",
+    instagram: "https://www.instagram.com/reel/DeeDdWPo_aR/",
     poster: "/images/neo-poster.webp",
   },
 ];

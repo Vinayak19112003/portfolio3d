@@ -6,7 +6,7 @@ import { buildSync } from "esbuild";
 import { JSDOM } from "jsdom";
 const require = createRequire(import.meta.url);
 
-test("project filters, dialog close, local video controls, mobile menu, and enquiry preparation", async () => {
+test("project filters, dialog close, Instagram reels, mobile menu, and enquiry preparation", async () => {
   const dom = new JSDOM(
     '<!doctype html><html><body><div id="root"></div></body></html>',
     { url: "https://vinayakdeshmuk.in/" },
@@ -59,6 +59,7 @@ test("project filters, dialog close, local video controls, mobile menu, and enqu
   };
   await act(async () => root.render(React.createElement(App)));
   assert.equal(document.querySelectorAll(".project-card").length, 5);
+  assert.equal(document.querySelector('script[src="https://www.instagram.com/embed.js"]'), null);
   for (const a of document.querySelectorAll('a[href^="#"]'))
     assert.ok(
       document.getElementById(a.getAttribute("href").slice(1)),
@@ -95,14 +96,15 @@ test("project filters, dialog close, local video controls, mobile menu, and enqu
     document.querySelector('[aria-label="Watch Branzyne — Brand Promo"]'),
   );
   assert.equal(document.querySelector("dialog").open, true);
-  const video = document.querySelector("video");
-  assert.equal(video.controls, true);
-  assert.equal(video.autoplay, false);
-  assert.equal(video.preload, "none");
+  assert.equal(document.querySelector("video"), null);
+  assert.equal(document.querySelector("a[download]"), null);
   assert.equal(
-    video.querySelector("source").getAttribute("src"),
-    "/media/branzyne-promo.mp4",
+    document.querySelector(".instagram-media").dataset.instgrmPermalink,
+    "https://www.instagram.com/reel/Ded3kOWTovl/",
   );
+  assert.equal(document.querySelector(".instagram-link a").href,
+    "https://www.instagram.com/reel/Ded3kOWTovl/");
+  assert.equal(document.querySelectorAll('script[src="https://www.instagram.com/embed.js"]').length, 1);
   assert.equal(document.body.style.overflow, "hidden");
   await act(async () =>
     document
@@ -111,6 +113,17 @@ test("project filters, dialog close, local video controls, mobile menu, and enqu
   );
   assert.equal(document.querySelector("dialog"), null);
   assert.equal(document.body.style.overflow, "");
+  await click(document.querySelector('[aria-label="Watch Meet Neo"]'));
+  assert.equal(document.querySelector(".instagram-media").dataset.instgrmPermalink,
+    "https://www.instagram.com/reel/DeeDdWPo_aR/");
+  assert.equal(document.querySelectorAll('script[src="https://www.instagram.com/embed.js"]').length, 1);
+  // A failed third-party script leaves an ordinary usable reel link.
+  document.querySelector('script[src="https://www.instagram.com/embed.js"]')
+    .dispatchEvent(new Event("error"));
+  assert.equal(document.querySelector(".instagram-link a").href,
+    "https://www.instagram.com/reel/DeeDdWPo_aR/");
+  await click(document.querySelector('[aria-label="Close project details"]'));
+  assert.equal(document.querySelector(".instagram-reel"), null);
   await click(document.querySelector(".menu-toggle"));
   assert.equal(
     document.querySelector(".menu-toggle").getAttribute("aria-expanded"),
@@ -169,5 +182,6 @@ test("public media references exist and production copy contains no private sour
     data,
     /github\.com\/Vinayak19112003\/(branzyne|plato-reels|agent-video-studio|happy-paws-slots)/i,
   );
+  assert.doesNotMatch(data, /\/media\/.*\.mp4/);
   assert.ok(existsSync("public/images/social-cover.jpg"));
 });

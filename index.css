@@ -1165,15 +1165,38 @@ ol {
   color: #57534d;
   margin-bottom: 30px;
 }
-.project-video {
+.instagram-reel {
+  width: min(100%, 400px);
+  margin: 0 auto 20px;
+}
+.instagram-reel blockquote a {
   display: block;
-  width: min(100%, 380px);
-  height: auto;
-  max-height: 65dvh;
-  aspect-ratio: 9/16;
-  background: #111;
+  text-align: center;
+}
+.instagram-reel blockquote img {
+  display: block;
+  width: 100%;
+  max-height: 55dvh;
   object-fit: contain;
-  margin: 0 auto 35px;
+  background: #111;
+  margin-bottom: 12px;
+}
+.instagram-reel .instagram-media {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+.instagram-link {
+  text-align: center;
+  margin-bottom: 35px;
+}
+.instagram-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 .dialog-project-image {
   width: 100%;
@@ -1692,9 +1715,6 @@ ol {
   }
   .dialog-content .button-row {
     flex-direction: column;
-  }
-  .project-video {
-    max-height: 63dvh;
   }
   .dialog-intro {
     font-size: 14px;

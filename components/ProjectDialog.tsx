@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, X } from "lucide-react";
 import type { Project } from "../data/projects";
+import { InstagramReel } from "./InstagramReel";
 export function ProjectDialog({
   project,
   returnFocus,
@@ -49,19 +50,15 @@ export function ProjectDialog({
         </p>
         <h2 id="project-dialog-title">{project.title}</h2>
         <p className="dialog-intro">{project.description}</p>
-        {project.video ? (
-          <video
-            className="project-video"
-            controls
-            playsInline
-            preload="none"
-            poster={project.poster}
-            aria-label={project.title + " video"}
-          >
-            <source src={project.video} type="video/mp4" />
-            Your browser cannot play this video.{" "}
-            <a href={project.video}>Download the film.</a>
-          </video>
+        {project.instagram ? (
+          <>
+            <InstagramReel url={project.instagram} title={project.title} poster={project.poster} />
+            <p className="instagram-link">
+              <a href={project.instagram} target="_blank" rel="noopener noreferrer">
+                Watch on Instagram <ArrowUpRight size={16} />
+              </a>
+            </p>
+          </>
         ) : project.poster ? (
           <img
             className="dialog-project-image"
@@ -98,7 +95,7 @@ export function ProjectDialog({
               target="_blank"
               rel="noopener noreferrer"
             >
-              {project.video ? "Visit the brand" : "Open live demo"}{" "}
+              {project.instagram ? "Visit the brand" : "Open live demo"}{" "}
               <ArrowUpRight size={16} />
             </a>
           ) : null}
@@ -110,15 +107,6 @@ export function ProjectDialog({
               rel="noopener noreferrer"
             >
               View public source <ArrowUpRight size={16} />
-            </a>
-          ) : null}
-          {project.video ? (
-            <a
-              className="button button-outline light-outline"
-              href={project.video}
-              download
-            >
-              Download film ↓
             </a>
           ) : null}
           <a
