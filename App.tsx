@@ -1,445 +1,79 @@
-import { useEffect, useRef, useState } from "react";
-import { ArrowDown, ArrowUpRight, Menu, X } from "lucide-react";
-import { ProjectDialog } from "./components/ProjectDialog";
+import { useState } from "react";
+import { ArrowDown, ArrowLeft, ArrowUpRight, Menu, X, Play, Plus } from "lucide-react";
+import { projects, type Project } from "./data/projects";
 import { ProjectVisual } from "./components/ProjectVisual";
 import { ProjectEnquiry } from "./components/ProjectEnquiry";
-import { projects, type Project } from "./data/projects";
+import { InstagramReel } from "./components/InstagramReel";
 
-const filters = ["All", "Websites & apps", "Tools", "Video & motion"] as const;
+export const projectPath = (project: Project) => `/work/${project.id}/`;
+const findProject = (id: string) => projects.find((project) => project.id === id)!;
 
-export default function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [filter, setFilter] = useState<string>("All");
-  const [selected, setSelected] = useState<Project | null>(null);
-  const projectTrigger = useRef<HTMLElement | null>(null);
-  function openProject(project: Project, trigger: HTMLElement) {
-    projectTrigger.current = trigger;
-    setSelected(project);
-  }
-  const visible =
-    filter === "All" ? projects : projects.filter((p) => p.category === filter);
-  useEffect(() => {
-    const resize = () => {
-      if (window.innerWidth >= 760) setMenuOpen(false);
-    };
-    const key = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
-    };
-    window.addEventListener("resize", resize);
-    window.addEventListener("keydown", key);
-    return () => {
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("keydown", key);
-    };
-  }, []);
-  return (
-    <>
-      <a href="#main" className="skip-link">
-        Skip to content
-      </a>
-      <header className="site-header">
-        <a className="wordmark" href="#main" aria-label="Vinayak Deshmuk home">
-          VD<span>.</span>
-        </a>
-        <button
-          className="menu-toggle"
-          aria-expanded={menuOpen}
-          aria-controls="site-navigation"
-          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-          onClick={() => setMenuOpen((v) => !v)}
-        >
-          {menuOpen ? <X /> : <Menu />}
-        </button>
-        <nav
-          id="site-navigation"
-          className={menuOpen ? "nav-links is-open" : "nav-links"}
-          aria-label="Main navigation"
-          onClick={() => setMenuOpen(false)}
-        >
-          <a href="#work">Work</a>
-          <a href="#services">Services</a>
-          <a href="#about">About</a>
-          <a href="#contact" className="button button-red nav-cta">
-            Start a project <ArrowUpRight size={15} />
-          </a>
-        </nav>
-      </header>
-      <main id="main">
-        <section className="hero shell" aria-labelledby="hero-heading">
-          <div className="hero-copy">
-            <p className="eyebrow">
-              <span className="status-dot" /> Vinayak Deshmuk · Creative
-              technologist
-            </p>
-            <h1 id="hero-heading">
-              Websites.
-              <br />
-              Films.
-              <br />
-              <span>
-                Intelligent
-                <br className="small-line-break" /> systems.
-              </span>
-            </h1>
-            <p className="hero-intro">
-              I build websites, create videos, and automate workflows for
-              creators and businesses.
-            </p>
-            <div className="button-row">
-              <a href="#work" className="button button-red">
-                Explore my work <ArrowDown size={16} />
-              </a>
-              <a href="#contact" className="button button-outline">
-                Start a project <ArrowUpRight size={16} />
-              </a>
-            </div>
-            <p className="discipline-line">
-              Development <span>/</span> Video & motion <span>/</span> AI
-              automation
-            </p>
-          </div>
-          <div className="hero-stage" aria-label="Featured work previews">
-            <button
-              className="hero-groom"
-              onClick={(e) => openProject(projects[0], e.currentTarget)}
-              aria-label="Explore Groom Room by Asha booking app"
-            >
-              <div className="mini-nav">
-                <span>
-                  ✦ Groom Room <small>by Asha</small>
-                </span>
-                <span className="mini-tag">Booking app</span>
-              </div>
-              <div className="groom-preview">
-                <div>
-                  <p className="mini-eyebrow">PET CARE, SIMPLIFIED</p>
-                  <h2>
-                    A little care.
-                    <br />A happier pet.
-                  </h2>
-                  <p>Appointments that fit your pet.</p>
-                  <span className="mini-button">Explore the project ↗</span>
-                </div>
-                <img
-                  src="/images/groom-room.webp"
-                  width="800"
-                  height="552"
-                  alt="A dog and cat being groomed in a warm studio"
-                />
-              </div>
-              <div className="groom-footer">
-                <span>Breed-aware scheduling</span>
-                <span>Self-serve bookings</span>
-              </div>
-            </button>
-            <button
-              className="hero-neo"
-              onClick={(e) => openProject(projects[4], e.currentTarget)}
-              aria-label="Watch Neo introduction film"
-            >
-              <img
-                src="/images/neo-poster.webp"
-                width="1080"
-                height="1920"
-                alt="Neo in a dark silhouette, arms crossed"
-              />
-              <span className="neo-title">NEO</span>
-              <span className="neo-subtitle">An AI introduction film ↗</span>
-            </button>
-            <button
-              className="hero-trace"
-              onClick={(e) => openProject(projects[1], e.currentTarget)}
-              aria-label="Explore TraceReel browser-to-video toolkit"
-            >
-              <div>
-                <span className="trace-mark">▣</span>
-                <strong>TraceReel</strong>
-                <span className="trace-description">
-                  Browser traces → demo videos
-                </span>
-              </div>
-              <div className="trace-wave" aria-hidden="true">
-                {[
-                  12, 24, 38, 18, 44, 31, 22, 42, 52, 18, 32, 40, 16, 50, 28,
-                  44, 20, 34, 48, 26, 16, 36, 42, 20,
-                ].map((height, i) => (
-                  <i key={i} style={{ height }} />
-                ))}
-              </div>
-              <span className="trace-foot">
-                An engineering project <ArrowUpRight size={15} />
-              </span>
-            </button>
-          </div>
-        </section>
-        <section
-          className="work-section light-section"
-          id="work"
-          aria-labelledby="work-heading"
-        >
-          <div className="shell">
-            <div className="section-top">
-              <div>
-                <p className="eyebrow red">01 / Selected work</p>
-                <h2 id="work-heading">
-                  Built. Directed.
-                  <br className="mobile-only" /> Delivered.
-                </h2>
-              </div>
-              <p className="section-note">
-                Working products and finished films.
-                <br />
-                Explore the craft behind each one.
-              </p>
-            </div>
-            <div
-              className="work-filters"
-              role="group"
-              aria-label="Filter projects"
-            >
-              {filters.map((f) => (
-                <button
-                  key={f}
-                  aria-pressed={filter === f}
-                  onClick={() => setFilter(f)}
-                >
-                  {f}
-                </button>
-              ))}
-            </div>
-            <p className="sr-only" aria-live="polite">
-              {visible.length} projects shown
-            </p>
-            <div className="project-grid">
-              {visible.map((p) => (
-                <article className={"project-card project-" + p.id} key={p.id}>
-                  <button
-                    className="project-image-button"
-                    onClick={(e) => openProject(p, e.currentTarget)}
-                    aria-label={(p.instagram ? "Watch " : "Explore ") + p.title}
-                  >
-                    <ProjectVisual project={p} />
-                    <span className="project-action">
-                      {p.instagram ? "Watch film" : "Explore project"}{" "}
-                      <ArrowUpRight size={16} />
-                    </span>
-                  </button>
-                  <div className="project-title-row">
-                    <div>
-                      <h3>
-                        <button onClick={(e) => openProject(p, e.currentTarget)}>
-                          {p.title}
-                        </button>
-                      </h3>
-                      <p>{p.subtitle}</p>
-                    </div>
-                    <span className="project-number">{p.number}</span>
-                  </div>
-                  <div className="project-meta">
-                    <span>{p.category}</span>
-                    <span>{p.label}</span>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-        <section
-          className="services-section shell"
-          id="services"
-          aria-labelledby="services-heading"
-        >
-          <div className="section-top">
-            <div>
-              <p className="eyebrow red">02 / How I can help</p>
-              <h2 id="services-heading">
-                From the first idea
-                <br />
-                to the final frame.
-              </h2>
-            </div>
-            <p className="section-note">
-              One person to work with.
-              <br />A clear scope. Thoughtful execution.
-            </p>
-          </div>
-          <div className="services-grid">
-            <article>
-              <span className="service-number">01</span>
-              <h3>
-                Websites
-                <br />& applications
-              </h3>
-              <p>
-                A considered online presence, a useful booking flow, or a custom
-                tool built around your business.
-              </p>
-              <ul>
-                <li>Business websites & landing pages</li>
-                <li>Booking systems & dashboards</li>
-                <li>Interactive web applications</li>
-              </ul>
-              <a href="#contact">
-                Discuss a website <ArrowUpRight size={17} />
-              </a>
-            </article>
-            <article>
-              <span className="service-number">02</span>
-              <h3>
-                Video
-                <br />& motion
-              </h3>
-              <p>
-                Videos with a clear message, purposeful pacing, and a visual
-                identity that belongs to your brand.
-              </p>
-              <ul>
-                <li>Short-form videos & brand promos</li>
-                <li>Motion graphics & product demos</li>
-                <li>AI video direction & editing</li>
-              </ul>
-              <a href="#contact">
-                Discuss a film <ArrowUpRight size={17} />
-              </a>
-            </article>
-            <article>
-              <span className="service-number">03</span>
-              <h3>
-                AI
-                <br />& automation
-              </h3>
-              <p>
-                Practical integrations and workflows that connect your tools and
-                reduce repeated manual tasks.
-              </p>
-              <ul>
-                <li>Custom workflow integrations</li>
-                <li>AI-assisted business tools</li>
-                <li>Browser & media automation</li>
-              </ul>
-              <a href="#contact">
-                Discuss a workflow <ArrowUpRight size={17} />
-              </a>
-            </article>
-          </div>
-        </section>
-        <section
-          className="about-section light-section"
-          id="about"
-          aria-labelledby="about-heading"
-        >
-          <div className="shell about-grid">
-            <div className="identity-panel">
-              <span className="identity-monogram" aria-hidden="true">
-                VD<span>.</span>
-              </span>
-              <p>
-                Developer.
-                <br />
-                Editor.
-                <br />
-                Builder.
-              </p>
-              <div className="identity-footer">
-                <span>Based in India</span>
-                <ArrowUpRight size={24} />
-              </div>
-            </div>
-            <div className="about-copy">
-              <p className="eyebrow red">03 / The person behind the work</p>
-              <h2 id="about-heading">Hi, I’m Vinayak.</h2>
-              <p className="about-lead">
-                I work where software and storytelling meet.
-              </p>
-              <p>
-                I build web experiences, create videos, and develop tools that
-                connect the two. My work includes a pet-grooming booking app, an
-                interactive learning product, and a toolkit that turns browser
-                traces into demo videos.
-              </p>
-              <p>
-                When you bring me a project, you work directly with me—from
-                understanding the brief to reviewing the final delivery.
-              </p>
-              <a
-                href="https://github.com/Vinayak19112003"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-link"
-              >
-                Explore my public GitHub <ArrowUpRight size={17} />
-              </a>
-            </div>
-          </div>
-        </section>
-        <section
-          className="process-section shell"
-          aria-labelledby="process-heading"
-        >
-          <div className="section-top">
-            <div>
-              <p className="eyebrow red">04 / Working together</p>
-              <h2 id="process-heading">A simple way forward.</h2>
-            </div>
-          </div>
-          <ol className="process-grid">
-            <li>
-              <span>01</span>
-              <h3>Understand</h3>
-              <p>
-                Your goal, audience, references, and what the finished work
-                needs to do.
-              </p>
-            </li>
-            <li>
-              <span>02</span>
-              <h3>Define</h3>
-              <p>
-                A clear proposal covering deliverables, timeline, and budget.
-              </p>
-            </li>
-            <li>
-              <span>03</span>
-              <h3>Create</h3>
-              <p>
-                Build or edit, share progress, and refine through agreed
-                reviews.
-              </p>
-            </li>
-            <li>
-              <span>04</span>
-              <h3>Deliver</h3>
-              <p>
-                The final files or application, with the handover your project
-                needs.
-              </p>
-            </li>
-          </ol>
-        </section>
-        <ProjectEnquiry />
-      </main>
-      <footer className="site-footer shell">
-        <a className="wordmark" href="#main" aria-label="Back to top">
-          VD<span>.</span>
-        </a>
-        <p>Vinayak Deshmuk · Development, video & automation</p>
-        <div>
-          <a href="mailto:vinayak19112003@gmail.com">
-            Email <ArrowUpRight size={14} />
-          </a>
-          <a
-            href="https://github.com/Vinayak19112003"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub <ArrowUpRight size={14} />
-          </a>
-          <span>© {new Date().getFullYear()}</span>
-        </div>
-      </footer>
-      {selected ? (
-        <ProjectDialog project={selected} returnFocus={projectTrigger.current} onClose={() => setSelected(null)} />
-      ) : null}
-    </>
-  );
+function Header() {
+  const [open, setOpen] = useState(false);
+  return <header className="site-header shell">
+    <a className="wordmark" href="/" aria-label="Vinayak Deshmuk home">vinayak<span>✳</span><small>DESIGN × TECHNOLOGY</small></a>
+    <button className="menu-toggle" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="site-navigation" onClick={() => setOpen(!open)}>{open ? <X/> : <Menu/>}</button>
+    <nav id="site-navigation" className={open ? "navigation is-open" : "navigation"} aria-label="Main navigation" onClick={() => setOpen(false)}>
+      <a href="/#work">Selected work <span>05</span></a><a href="/#about">About</a><a className="nav-contact" href="/#contact">Let’s talk <ArrowUpRight size={16}/></a>
+    </nav>
+  </header>;
+}
+function GroomScreen({ priority = false }: { priority?: boolean }) {
+  return <div className="browser-frame"><div className="browser-bar"><span>● ● ●</span><span>Groom Room by Asha</span><ArrowUpRight size={12}/></div><img src="/images/groom-interface.jpg" alt="Groom Room’s live booking interface, with pet grooming services and appointment booking" width="1348" height="926" loading={priority ? "eager" : "lazy"}/></div>;
+}
+function Feature({ project, index }: { project: Project; index: string }) {
+  return <article className={`feature feature-${project.id}`}>
+    <a className="feature-art" href={projectPath(project)} aria-label={`Explore ${project.title}`}>
+      {project.id === "groom-room" ? <GroomScreen/> : <ProjectVisual project={project}/>}
+      <span className="art-action">{project.instagram ? <Play size={18}/> : <ArrowUpRight size={22}/>}</span>
+    </a>
+    <div className="feature-copy"><div className="project-meta"><span>{index} / {project.label}</span><span>{project.instagram ? "FILM & MOTION" : project.category.toUpperCase()}</span></div>
+      <a href={projectPath(project)}><h3>{project.title}<ArrowUpRight/></h3></a><p>{project.subtitle}</p>
+    </div>
+  </article>;
+}
+function Home() {
+  return <>
+    <section className="hero shell" aria-labelledby="hero-heading">
+      <div className="hero-topline"><span className="eyebrow"><i/> Independent creative technologist</span><span className="hero-location">BASED IN INDIA · WORKING EVERYWHERE</span></div>
+      <h1 id="hero-heading">I build digital<br/>experiences.<br/><em>And the stories</em><br/><em>around them.</em><span className="hero-asterisk" aria-hidden="true">✳</span></h1>
+      <div className="hero-bottom"><p>Thoughtful websites. Cinematic films.<br/>Intelligent workflows.<br/><strong>One creative point of view.</strong></p><a className="round-link" href="#work"><span>Discover the work</span><span className="circle"><ArrowDown size={24}/></span></a></div>
+      <a className="hero-stage" href="/work/groom-room/" aria-label="Explore the Groom Room booking application"><div className="stage-caption"><span>IN FOCUS / 01</span><span>A little care.<br/><em>A better experience.</em></span></div><GroomScreen priority/><div className="stage-bottom"><span>GROOM ROOM BY ASHA</span><span>PRODUCT DESIGN & DEVELOPMENT <ArrowUpRight size={16}/></span></div></a>
+    </section>
+    <section className="work-section shell" id="work" aria-labelledby="work-heading">
+      <div className="section-heading"><p className="eyebrow">01 / Selected work</p><h2 id="work-heading">Different mediums.<br/><em>Same intention.</em></h2><p>A selection of digital products,<br/>creative tools, and moving stories.</p></div>
+      <Feature project={findProject("groom-room")} index="01"/>
+      <div className="feature-pair"><Feature project={findProject("neo-film")} index="02"/><Feature project={findProject("tracereel")} index="03"/></div>
+      <div className="support-heading"><span className="eyebrow">More to explore</span><span>02 PROJECTS</span></div>
+      <div className="support-grid"><Feature project={findProject("mathlens")} index="04"/><Feature project={findProject("branzyne-film")} index="05"/></div>
+    </section>
+    <section className="services-section" id="services" aria-labelledby="services-heading"><div className="shell"><div className="section-heading"><p className="eyebrow">02 / What I can do for you</p><h2 id="services-heading">From the first idea<br/><em>to the final detail.</em></h2></div>
+      {[
+        ["01", "Digital experiences", "Websites & applications", "Clear, considered websites and useful applications. Built around your audience and the actions that matter.", "Web design / Development / Booking flows"],
+        ["02", "Stories in motion", "Video & brand films", "An idea, given rhythm. Brand introductions, product stories, and short-form films with a distinct visual voice.", "Editing / Motion typography / Sound"],
+        ["03", "Smarter ways to work", "AI & automation", "Practical tools that connect the repetitive parts of your process, so there is more room for the work you care about.", "Workflow design / Integrations / Custom tools"],
+      ].map(([n,title,label,description,tags]) => <a className="service-row" href="#contact" key={n}><span className="service-number">{n}</span><div><span className="eyebrow">{label}</span><h3>{title}</h3></div><div className="service-description"><p>{description}</p><small>{tags}</small></div><ArrowUpRight className="service-arrow"/></a>)}
+    </div></section>
+    <section className="about-section shell" id="about" aria-labelledby="about-heading"><div className="about-mark" aria-hidden="true"><span>v<span className="mark-dot">.</span></span><small>CURIOUS BY NATURE.<br/>INTENTIONAL BY DESIGN.</small></div><div className="about-copy"><p className="eyebrow">03 / The person behind the work</p><h2 id="about-heading">Hi, I’m Vinayak.<br/><em>A builder with<br/>a storyteller’s eye.</em></h2><p>I work where design, development, and moving images meet. I like making complex things feel simple—and giving useful ideas a memorable form.</p><p>From a booking experience to a cinematic introduction, I bring the same attention to how something works and how it feels.</p><a className="text-link" href="#contact">Let’s make something together <ArrowUpRight size={18}/></a></div></section>
+    <section className="process-section shell" aria-label="How we work"><p className="eyebrow">04 / A clear way forward</p><div className="process-grid">{[["01","Listen","Your goals, your audience, and what success looks like."],["02","Shape","A clear direction, scope, and visual approach."],["03","Make","Build, share progress, and refine the details."],["04","Launch","Final checks, delivery, and a considered handover."]].map(([n,title,copy]) => <div key={n}><span>{n}</span><h3>{title}</h3><p>{copy}</p></div>)}</div></section>
+    <ProjectEnquiry/>
+  </>;
+}
+function FilmPlayer({ project }: { project: Project }) {
+  const [playing, setPlaying] = useState(false);
+  return <div className="film-player"><div className="film-player-stage">{playing ? <InstagramReel url={project.instagram!} title={project.title} poster={project.poster}/> : <button className="film-load" onClick={() => setPlaying(true)} aria-label={`Load ${project.title} Instagram reel`}><ProjectVisual project={project}/><span className="film-play"><span className="circle"><Play fill="currentColor" size={20}/></span>Play Instagram reel</span></button>}</div><div className="instagram-link"><p>Film hosted on Instagram. Playback may require an Instagram login.</p><a className="text-link" href={project.instagram} target="_blank" rel="noopener noreferrer">Watch on Instagram <ArrowUpRight size={17}/></a></div></div>;
+}
+function CaseStudy({ project }: { project: Project }) {
+  const next = projects[(projects.findIndex(p => p.id === project.id) + 1) % projects.length];
+  return <article className={`case-study case-${project.id}`}>
+    <div className="case-header shell"><a className="back-link" href="/#work"><ArrowLeft size={16}/> All selected work</a><div className="project-meta"><span>{project.label}</span><span>{project.category}</span></div><h1>{project.title}</h1><p className="case-subtitle">{project.subtitle}</p><div className="case-intro"><p>{project.description}</p><div className="case-actions">{project.live && <a className="button button-ivory" href={project.live} target="_blank" rel="noopener noreferrer">{project.instagram ? "Visit brand website" : "Explore live demo"}<ArrowUpRight size={17}/></a>}{project.source && <a className="button button-ivory" href={project.source} target="_blank" rel="noopener noreferrer">Explore the source<ArrowUpRight size={17}/></a>}{project.instagram && <a className="button button-ivory" href="#film">Watch the film<ArrowDown size={17}/></a>}</div></div></div>
+    <div className="case-showcase shell" id={project.instagram ? "film" : "project-visual"}>{project.instagram ? <FilmPlayer project={project}/> : <div className={`case-art case-art-${project.id}`}>{project.id === "groom-room" ? <GroomScreen priority/> : <ProjectVisual project={project}/>}</div>}</div>
+    <div className="case-details shell"><aside><p className="eyebrow">Inside the project</p><h2>Purpose.<br/>Process.<br/><em>Details.</em></h2><a className="text-link" href="/#contact">Have something in mind?<ArrowUpRight size={16}/></a></aside><div className="case-story"><section><span className="eyebrow">01 / The brief</span><h2>A problem worth solving.</h2><p>{project.problem}</p></section><section><span className="eyebrow">02 / The approach</span><h2>Making the idea work.</h2><p>{project.approach}</p></section><section><span className="eyebrow">03 / The delivery</span><h2>What came together.</h2><ul>{project.deliverables.map(item => <li key={item}><Plus size={15}/>{item}</li>)}</ul></section>{project.caveat && <p className="project-note">{project.caveat}</p>}</div></div>
+    <a className="next-project shell" href={projectPath(next)}><span className="eyebrow">Up next / {next.label}</span><span>{next.title}<ArrowUpRight/></span></a>
+  </article>;
+}
+export default function App({ initialPath }: { initialPath?: string }) {
+  const path = (initialPath ?? (typeof window !== "undefined" ? window.location.pathname : "/")).replace(/\/+$/, "") || "/";
+  const project = projects.find(p => path === `/work/${p.id}`);
+  return <><a className="skip-link" href="#main">Skip to content</a><Header/><main id="main">{path === "/" ? <Home/> : project ? <CaseStudy project={project}/> : <section className="not-found shell"><p className="eyebrow">404 / Page not found</p><h1>Let’s get you<br/><em>back to the work.</em></h1><a className="button button-ivory" href="/">Back home <ArrowUpRight size={18}/></a></section>}</main><footer className="site-footer shell"><a className="footer-name" href="/">vinayak<span>✳</span></a><div><span>Design. Build. Tell a story.</span><a href="mailto:vinayak19112003@gmail.com">Email <ArrowUpRight size={14}/></a><a href="https://github.com/Vinayak19112003" target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight size={14}/></a><span>© {new Date().getFullYear()} Vinayak Deshmuk</span></div></footer></>;
 }

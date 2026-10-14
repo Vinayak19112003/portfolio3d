@@ -1,5 +1,7 @@
+import { useId } from "react";
 import type { Project } from "../data/projects";
 export function ProjectVisual({ project }: { project: Project }) {
+  const gridId = useId();
   if (project.id === "groom-room")
     return (
       <div className="groom-cover">
@@ -76,7 +78,7 @@ export function ProjectVisual({ project }: { project: Project }) {
         >
           <defs>
             <pattern
-              id="math-grid"
+              id={gridId}
               width="30"
               height="30"
               patternUnits="userSpaceOnUse"
@@ -89,7 +91,7 @@ export function ProjectVisual({ project }: { project: Project }) {
               />
             </pattern>
           </defs>
-          <rect width="420" height="220" fill="url(#math-grid)" />
+          <rect width="420" height="220" fill={`url(#${gridId})`} />
           <path d="M0 180H420M100 0V220" stroke="#506052" strokeWidth="1.2" />
           <path d="M35 212L370 32" stroke="#324d38" strokeWidth="3" />
           <path

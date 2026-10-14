@@ -36,16 +36,22 @@ The enquiry form prepares an email draft and offers copy-to-clipboard with a man
 
 ## Media
 
-Films are displayed through Instagram’s official embed script, loaded only when a film’s project dialog opens. A persistent “Watch on Instagram” link works even if the embed is unavailable. The MP4 players, download buttons, and hosted MP4 assets have been removed. Original film copies remain in Git history and the previous delivery package. Posters remain extracted from the actual films and converted to WebP.
+Films are displayed through Instagram’s official embed script, loaded only after the visitor selects “Play Instagram reel” on the film’s dedicated page. A persistent “Watch on Instagram” link works even if the embed is unavailable. The MP4 players, download buttons, and hosted MP4 assets have been removed. Original film copies remain in Git history and the previous delivery package. Posters remain extracted from the actual films and converted to WebP.
 
 Instagram controls embed availability and playback. The reels must remain public with embedding allowed; browser restrictions or Instagram sign-in requirements can prevent an embedded player from loading.
 
-Project covers for TraceReel and MathLens are custom illustrative graphics, not claimed product screenshots. The Groom Room cover uses its supplied app hero image with editorial cover text.
+Project covers for TraceReel and MathLens are custom illustrative graphics, not claimed product screenshots. Groom Room uses a captured screenshot of the actual public booking demo, presented inside a browser frame.
 
 ## Accessibility and motion
 
-Native buttons, labelled form fields, skip link, direct Instagram fallback links, escape-to-close native dialog, filter pressed states, normal cursors, and reduced-motion styling. No forced autoplay or scroll hijacking.
+Native links and buttons, labelled form fields, a skip link, direct Instagram fallback links, mobile navigation, normal cursors, and reduced-motion styling. No forced autoplay or scroll hijacking.
 
 ## Validation limits
 
-Automated UI checks use jsdom; native dialog is polyfilled there. They exercise state changes and DOM behaviour, not real layout, focus trapping, codec playback, or clipboard/browser policy. Browser visual verification still needs to run on the deployment preview at desktop and mobile sizes.
+Automated UI checks use jsdom and cover server-rendered hydration, direct project routes, navigation, on-demand Instagram embeds, blocked-script fallback links, enquiry preparation, and clipboard fallback. These checks do not measure browser layout or Instagram playback. Browser QA is performed separately.
+
+## Page architecture
+
+The homepage features three major projects and two supporting studies. Each project has a native `/work/<id>/` URL. The build prerenders the homepage, five case studies, and a 404 page into complete HTML with page-specific titles, descriptions, canonical URLs, Open Graph data, and a sitemap. React hydrates the same markup for forms, navigation, and click-to-load films. Native page navigation supports browser history and direct refresh without a router or catch-all rewrite.
+
+The design uses charcoal, warm ivory, vermilion, Manrope, DM Sans, and Instrument Serif. Responsive layouts switch at 1050px and 700px; motion respects `prefers-reduced-motion`. Budget and timeline fields are optional and collapsed by default.

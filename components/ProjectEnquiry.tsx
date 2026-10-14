@@ -110,6 +110,7 @@ export function ProjectEnquiry() {
               placeholder="Your goal, audience, references, and the work you need."
             />
           </label>
+          <details className="optional-fields"><summary>Add a budget or timeline (optional)</summary>
           <div className="field-row">
             <label>
               Budget range <span>(optional)</span>
@@ -124,6 +125,7 @@ export function ProjectEnquiry() {
               <input name="deadline" type="date" />
             </label>
           </div>
+          </details>
           <button type="submit" className="button button-ivory">
             Prepare project email <ArrowUpRight size={17} />
           </button>

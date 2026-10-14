@@ -1,11 +1,11 @@
 # Deployment
 
-Run `npm ci`, `npm test`, and `npm run build`. Deploy the `dist` directory.
+Run `npm ci`, `npm test`, and `npm run build`. Deploy `dist/`. The existing Vercel project builds GitHub main automatically.
 
-This remains a Vite static site. It needs no environment variables or API keys. The former browser-side Gemini key definition has been removed. No server enquiry submission is configured: enquiries open the visitor’s email application.
+The build runs TypeScript, Vite, and `scripts/prerender.mjs`. It emits complete static HTML for `/`, five `/work/<id>/` case studies, and `404.html`. Serve directory index files normally; do not add an SPA catch-all rewrite. No environment variables, API keys, or backend are required.
 
-Before promoting to the custom domain, review at widths 360, 390, 768 and 1440 px; check menu, filters, project dialogs, Instagram embeds and direct reel links, email preparation and copy fallback. Verify Escape closes dialogs and focus returns to the opener. Test reduced-motion mode and keyboard navigation.
+Canonical origin: https://www.vinayakdeshmuk.in. The root domain redirects to www through the existing domain configuration. Individual metadata and the sitemap are generated during build; update the origin in the prerender script and index template together if the domain changes.
 
-The supplied Neo and Branzyne Instagram URLs are in `data/projects.ts`. Set production canonical, Open Graph and sitemap URLs together if the domain changes.
+Verification: direct-load and refresh case-study URLs, use browser Back, open the mobile menu, activate each Instagram film, and prepare an enquiry. Check keyboard focus, reduced motion, and narrow-width layout. Instagram is loaded only after a visitor chooses playback; external reel links remain available if an embed is blocked.
 
-Films are Instagram embeds, not hosted MP4 files. Keep the reels public with embedding allowed. The direct reel links remain visible when an embed cannot load.
+The enquiry form prepares a mailto draft; it does not send or store enquiries. Budget and timeline fields remain optional.
