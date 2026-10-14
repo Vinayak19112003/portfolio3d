@@ -39,7 +39,7 @@ export function ProjectEnquiry() {
     >
       <div className="shell contact-grid">
         <div className="contact-copy">
-          <p className="eyebrow">05 / Start a conversation</p>
+          <p className="eyebrow">06 / Start a conversation</p>
           <h2 id="contact-heading">
             What are
             <br />

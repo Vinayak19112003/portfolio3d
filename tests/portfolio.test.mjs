@@ -94,3 +94,28 @@ test('public media references exist and private repositories are excluded',()=>{
  assert.doesNotMatch(data,/github\.com\/Vinayak19112003\/(branzyne|plato-reels|agent-video-studio|happy-paws-slots)/i);
  assert.doesNotMatch(data,/\/media\/.*\.mp4/);
 });
+
+test('open-source page hydrates with unique upstream PR evidence and both supplied SpoonOS posts',async()=>{
+ const dom=new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',{url:'https://www.vinayakdeshmuk.in/open-source/'});
+ for(const key of ['window','document','navigator','HTMLElement','Event','MouseEvent'])Object.defineProperty(globalThis,key,{value:dom.window[key],configurable:true,writable:true});
+ const {renderToString}=require('react-dom/server');
+ const {hydrateRoot}=require('react-dom/client');
+ document.getElementById('root').innerHTML=renderToString(React.createElement(App,{initialPath:'/open-source/'}));
+ const errors=[];let root;
+ await act(async()=>{root=hydrateRoot(document.getElementById('root'),React.createElement(App),{onRecoverableError:e=>errors.push(e.message)});});
+ assert.deepEqual(errors,[]);
+ const evidence=[...document.querySelectorAll('.contribution-evidence')].map(a=>a.href);
+ assert.equal(evidence.length,7);
+ assert.equal(new Set(evidence).size,7);
+ assert.ok(evidence.includes('https://github.com/pylint-dev/pylint/pull/11573'));
+ assert.ok(evidence.includes('https://github.com/XSpoonAi/spoon-awesome-skill/pull/22'));
+ assert.ok(evidence.every(url=>!url.includes('github.com/Vinayak19112003/')));
+ assert.equal(document.querySelectorAll('.merge-status').length,7);
+ assert.equal(document.querySelectorAll('time[datetime]').length,7);
+ assert.match(document.querySelector('.contribution-summary').textContent,/7 selected merged PRs6 upstream projects/);
+ for(const url of ['https://x.com/SpoonOS_ai/status/2022205989878112606','https://x.com/SpoonOS_ai/status/2032377323425865788'])assert.ok(document.querySelector(`a[href="${url}"]`));
+ assert.doesNotMatch(document.body.textContent,/prize|winner|win rate|trading/i);
+ assert.equal(document.querySelector('script[src]'),null,'Social links must not load a third-party SDK');
+ await act(async()=>root.unmount());
+ dom.window.close();
+});

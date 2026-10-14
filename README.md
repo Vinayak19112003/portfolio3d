@@ -55,3 +55,9 @@ Automated UI checks use jsdom and cover server-rendered hydration, direct projec
 The homepage leads with TraceReel and Neo at equal visual weight, followed by smaller Groom Room, MathLens, and Branzyne cards. Each project has a native `/work/<id>/` URL. The build prerenders the homepage, five case studies, and a 404 page into complete HTML with page-specific titles, descriptions, canonical URLs, Open Graph data, and a sitemap. React hydrates the same markup for forms, navigation, and click-to-load films. Native page navigation supports browser history and direct refresh without a router or catch-all rewrite.
 
 The design uses charcoal, warm ivory, vermilion, Manrope, DM Sans, and Instrument Serif. Responsive layouts switch at 1050px and 700px; motion respects `prefers-reduced-motion`. Budget and timeline fields are optional and collapsed by default.
+
+## Open-source contributions
+
+`data/contributions.ts` holds seven selected merged upstream pull requests across six external repositories, verified on 14 October 2026. The homepage features NodeSecure, Pylint, and PDM; `/open-source/` lists every selected contribution and its merge date. Skfolio’s financial-library contribution is excluded from the curated display to preserve the no-trading portfolio scope. Own repository PRs are not counted as upstream contributions.
+
+SpoonOS recognition links to the two supplied X posts, merged showcase PR #22, and SpoonOS’s official LinkedIn feature crediting Vinayak. The X post contents could not be extracted during verification; no award, prize, rank, or result is attributed to those posts. Feature wording is supported by the official LinkedIn update. No third-party social SDK is loaded for these links.

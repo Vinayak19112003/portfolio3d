@@ -4,6 +4,7 @@ import { projects, type Project } from "./data/projects";
 import { ProjectVisual } from "./components/ProjectVisual";
 import { ProjectEnquiry } from "./components/ProjectEnquiry";
 import { InstagramReel } from "./components/InstagramReel";
+import { OpenSourceSection, OpenSourcePage } from "./components/OpenSource";
 
 export const projectPath = (project: Project) => `/work/${project.id}/`;
 const findProject = (id: string) => projects.find((project) => project.id === id)!;
@@ -14,7 +15,7 @@ function Header() {
     <a className="wordmark" href="/" aria-label="Vinayak Deshmuk home">vinayak<span>✳</span><small>DESIGN × TECHNOLOGY</small></a>
     <button className="menu-toggle" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="site-navigation" onClick={() => setOpen(!open)}>{open ? <X/> : <Menu/>}</button>
     <nav id="site-navigation" className={open ? "navigation is-open" : "navigation"} aria-label="Main navigation" onClick={() => setOpen(false)}>
-      <a href="/#work">Selected work <span>05</span></a><a href="/#about">About</a><a className="nav-contact" href="/#contact">Let’s talk <ArrowUpRight size={16}/></a>
+      <a href="/#work">Selected work <span>05</span></a><a href="/#open-source">Open source</a><a href="/#about">About</a><a className="nav-contact" href="/#contact">Let’s talk <ArrowUpRight size={16}/></a>
     </nav>
   </header>;
 }
@@ -45,15 +46,16 @@ function Home() {
       <div className="support-heading"><span className="eyebrow">More to explore</span><span>03 PROJECTS</span></div>
       <div className="support-grid"><Feature project={findProject("groom-room")} index="03"/><Feature project={findProject("mathlens")} index="04"/><Feature project={findProject("branzyne-film")} index="05"/></div>
     </section>
-    <section className="services-section" id="services" aria-labelledby="services-heading"><div className="shell"><div className="section-heading"><p className="eyebrow">02 / What I can do for you</p><h2 id="services-heading">From the first idea<br/><em>to the final detail.</em></h2></div>
+    <OpenSourceSection/>
+    <section className="services-section" id="services" aria-labelledby="services-heading"><div className="shell"><div className="section-heading"><p className="eyebrow">03 / What I can do for you</p><h2 id="services-heading">From the first idea<br/><em>to the final detail.</em></h2></div>
       {[
         ["01", "Digital experiences", "Websites & applications", "Clear, considered websites and useful applications. Built around your audience and the actions that matter.", "Web design / Development / Product experiences"],
         ["02", "Stories in motion", "Video & brand films", "An idea, given rhythm. Brand introductions, product stories, and short-form films with a distinct visual voice.", "Editing / Motion typography / Sound"],
         ["03", "Smarter ways to work", "AI & automation", "Practical tools that connect the repetitive parts of your process, so there is more room for the work you care about.", "Workflow design / Integrations / Custom tools"],
       ].map(([n,title,label,description,tags]) => <a className="service-row" href="#contact" key={n}><span className="service-number">{n}</span><div><span className="eyebrow">{label}</span><h3>{title}</h3></div><div className="service-description"><p>{description}</p><small>{tags}</small></div><ArrowUpRight className="service-arrow"/></a>)}
     </div></section>
-    <section className="about-section shell" id="about" aria-labelledby="about-heading"><div className="about-mark" aria-hidden="true"><span>v<span className="mark-dot">.</span></span><small>CURIOUS BY NATURE.<br/>INTENTIONAL BY DESIGN.</small></div><div className="about-copy"><p className="eyebrow">03 / The person behind the work</p><h2 id="about-heading">Hi, I’m Vinayak.<br/><em>A builder with<br/>a storyteller’s eye.</em></h2><p>I work where design, development, and moving images meet. I like making complex things feel simple—and giving useful ideas a memorable form.</p><p>From a creative tool to a cinematic introduction, I bring the same attention to how something works and how it feels.</p><a className="text-link" href="#contact">Let’s make something together <ArrowUpRight size={18}/></a></div></section>
-    <section className="process-section shell" aria-label="How we work"><p className="eyebrow">04 / A clear way forward</p><div className="process-grid">{[["01","Listen","Your goals, your audience, and what success looks like."],["02","Shape","A clear direction, scope, and visual approach."],["03","Make","Build, share progress, and refine the details."],["04","Launch","Final checks, delivery, and a considered handover."]].map(([n,title,copy]) => <div key={n}><span>{n}</span><h3>{title}</h3><p>{copy}</p></div>)}</div></section>
+    <section className="about-section shell" id="about" aria-labelledby="about-heading"><div className="about-mark" aria-hidden="true"><span>v<span className="mark-dot">.</span></span><small>CURIOUS BY NATURE.<br/>INTENTIONAL BY DESIGN.</small></div><div className="about-copy"><p className="eyebrow">04 / The person behind the work</p><h2 id="about-heading">Hi, I’m Vinayak.<br/><em>A builder with<br/>a storyteller’s eye.</em></h2><p>I work where design, development, and moving images meet. I like making complex things feel simple—and giving useful ideas a memorable form.</p><p>From a creative tool to a cinematic introduction, I bring the same attention to how something works and how it feels.</p><a className="text-link" href="#contact">Let’s make something together <ArrowUpRight size={18}/></a></div></section>
+    <section className="process-section shell" aria-label="How we work"><p className="eyebrow">05 / A clear way forward</p><div className="process-grid">{[["01","Listen","Your goals, your audience, and what success looks like."],["02","Shape","A clear direction, scope, and visual approach."],["03","Make","Build, share progress, and refine the details."],["04","Launch","Final checks, delivery, and a considered handover."]].map(([n,title,copy]) => <div key={n}><span>{n}</span><h3>{title}</h3><p>{copy}</p></div>)}</div></section>
     <ProjectEnquiry/>
   </>;
 }
@@ -73,5 +75,5 @@ function CaseStudy({ project }: { project: Project }) {
 export default function App({ initialPath }: { initialPath?: string }) {
   const path = (initialPath ?? (typeof window !== "undefined" ? window.location.pathname : "/")).replace(/\/+$/, "") || "/";
   const project = projects.find(p => path === `/work/${p.id}`);
-  return <><a className="skip-link" href="#main">Skip to content</a><Header/><main id="main">{path === "/" ? <Home/> : project ? <CaseStudy project={project}/> : <section className="not-found shell"><p className="eyebrow">404 / Page not found</p><h1>Let’s get you<br/><em>back to the work.</em></h1><a className="button button-ivory" href="/">Back home <ArrowUpRight size={18}/></a></section>}</main><footer className="site-footer shell"><a className="footer-name" href="/">vinayak<span>✳</span></a><div><span>Design. Build. Tell a story.</span><a href="mailto:vinayak19112003@gmail.com">Email <ArrowUpRight size={14}/></a><a href="https://github.com/Vinayak19112003" target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight size={14}/></a><span>© {new Date().getFullYear()} Vinayak Deshmuk</span></div></footer></>;
+  return <><a className="skip-link" href="#main">Skip to content</a><Header/><main id="main">{path === "/" ? <Home/> : path === "/open-source" ? <OpenSourcePage/> : project ? <CaseStudy project={project}/> : <section className="not-found shell"><p className="eyebrow">404 / Page not found</p><h1>Let’s get you<br/><em>back to the work.</em></h1><a className="button button-ivory" href="/">Back home <ArrowUpRight size={18}/></a></section>}</main><footer className="site-footer shell"><a className="footer-name" href="/">vinayak<span>✳</span></a><div><span>Design. Build. Tell a story.</span><a href="mailto:vinayak19112003@gmail.com">Email <ArrowUpRight size={14}/></a><a href="https://github.com/Vinayak19112003" target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight size={14}/></a><span>© {new Date().getFullYear()} Vinayak Deshmuk</span></div></footer></>;
 }
