@@ -129,6 +129,7 @@ export const projects: Project[] = [
     subtitle: "An AI persona with a cinematic introduction.",
     category: "Video & motion",
     label: "AI introduction film",
+    video: "/media/neo-introduction.mp4",
     description:
       "An introduction for Neo, an original human-looking AI persona created to present creative and technology services.",
     problem:

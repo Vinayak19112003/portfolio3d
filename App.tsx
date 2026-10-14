@@ -25,7 +25,7 @@ function GroomScreen({ priority = false }: { priority?: boolean }) {
 }
 function Feature({ project, index }: { project: Project; index: string }) {
   return <article className={`feature feature-${project.id}`}>
-    {project.video ? <div className="feature-art feature-video"><AutoplayFilm src={project.video} poster={project.poster} title={`${project.title} client film`}/><a className="art-action" href={projectPath(project)} aria-label={`Explore ${project.title}`}><ArrowUpRight size={22}/></a></div> : <a className="feature-art" href={projectPath(project)} aria-label={`Explore ${project.title}`}>
+    {project.video ? <div className="feature-art feature-video"><AutoplayFilm src={project.video} poster={project.poster} title={`${project.title} film`}/><a className="art-action" href={projectPath(project)} aria-label={`Explore ${project.title}`}><ArrowUpRight size={22}/></a></div> : <a className="feature-art" href={projectPath(project)} aria-label={`Explore ${project.title}`}>
       {project.id === "groom-room" ? <GroomScreen/> : <ProjectVisual project={project}/>}
       <span className="art-action">{project.instagram ? <Play size={18}/> : <ArrowUpRight size={22}/>}</span>
     </a>}
@@ -62,7 +62,7 @@ function Home() {
 }
 function FilmPlayer({ project }: { project: Project }) {
   const [playing, setPlaying] = useState(false);
-  if (project.video) return <div className="film-player"><div className="film-player-stage"><AutoplayFilm src={project.video} poster={project.poster} title={`${project.title} client film`}/></div><div className="instagram-link"><p>Client: {project.client}. Original 35-second promo.</p><a className="text-link" href={project.instagram} target="_blank" rel="noopener noreferrer">Watch on Instagram<ArrowUpRight size={17}/></a></div></div>;
+  if (project.video) return <div className="film-player"><div className="film-player-stage"><AutoplayFilm src={project.video} poster={project.poster} title={`${project.title} film`}/></div><div className="instagram-link"><p>{project.client ? `Client: ${project.client}. Original 35-second promo.` : "Original 34-second introduction film."}</p><a className="text-link" href={project.instagram} target="_blank" rel="noopener noreferrer">Watch on Instagram<ArrowUpRight size={17}/></a></div></div>;
   return <div className="film-player"><div className="film-player-stage">{playing ? <InstagramReel url={project.instagram!} title={project.title} poster={project.poster}/> : <button className="film-load" onClick={() => setPlaying(true)} aria-label={`Load ${project.title} Instagram reel`}><ProjectVisual project={project}/><span className="film-play"><span className="circle"><Play fill="currentColor" size={20}/></span>Play Instagram reel</span></button>}</div><div className="instagram-link"><p>Film hosted on Instagram. Playback may require an Instagram login.</p><a className="text-link" href={project.instagram} target="_blank" rel="noopener noreferrer">Watch on Instagram <ArrowUpRight size={17}/></a></div></div>;
 }
 function CaseStudy({ project }: { project: Project }) {

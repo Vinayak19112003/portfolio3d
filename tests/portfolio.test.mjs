@@ -27,7 +27,7 @@ test('prerendered homepage hydrates, navigation works, and enquiry prepares an e
  assert.deepEqual([...document.querySelectorAll('#coding .feature h3')].map(el=>el.textContent),['TraceReel','Groom Room by Asha','MathLens']);
  assert.deepEqual([...document.querySelectorAll('#video-editing .feature h3')].map(el=>el.textContent),['Branzyne — Brand Promo','Meet Neo']);
  assert.equal(document.querySelectorAll('#coding video').length,0);
- assert.equal(document.querySelectorAll('#video-editing video').length,1);
+ assert.equal(document.querySelectorAll('#video-editing video').length,2);
  assert.deepEqual([...document.querySelectorAll('.work-categories a')].map(el=>el.hash),['#coding','#video-editing','#open-source']);
  assert.equal(document.querySelectorAll('img[src="/images/groom-interface.jpg"]').length,1, 'Groom Room preview appears once on the homepage');
  assert.equal(document.querySelectorAll('h1').length,1);
@@ -61,7 +61,7 @@ test('prerendered homepage hydrates, navigation works, and enquiry prepares an e
  dom.window.close();
 });
 
-test('direct project routes hydrate and load only the correct Instagram reel on request',async()=>{
+test('direct project routes hydrate with muted film autoplay and the correct Instagram links',async()=>{
  const {renderToString}=require('react-dom/server');
  const {hydrateRoot}=require('react-dom/client');
  for(const [id,title,reel] of [['neo-film','Meet Neo','DeeDdWPo_aR'],['branzyne-film','Branzyne — Brand Promo','Ded3kOWTovl'],['groom-room','Groom Room by Asha'],['tracereel','TraceReel'],['mathlens','MathLens']]){
@@ -76,29 +76,20 @@ test('direct project routes hydrate and load only the correct Instagram reel on 
   assert.equal(document.querySelector('h1').textContent,title);
   if(id==='tracereel') assert.equal(document.querySelector('.case-actions a').href,'https://trace-to-smooth-showcase.lovable.app/');
   assert.equal(document.querySelector('.back-link').getAttribute('href'),'/#work');
-  if(id==='branzyne-film') assert.equal(document.querySelector('.instagram-link a').href,'https://www.instagram.com/reel/Ded3kOWTovl/');
-  if(id==='branzyne-film'){
+  if(reel) assert.equal(document.querySelector('.instagram-link a').href,`https://www.instagram.com/reel/${reel}/`);
+  if(reel){
    const video=document.querySelector('video');
    assert.ok(video);
-   assert.equal(video.getAttribute('src'),'/media/branzyne-promo.mp4');
+   assert.equal(video.getAttribute('src'),id==='branzyne-film' ? '/media/branzyne-promo.mp4' : '/media/neo-introduction.mp4');
    assert.equal(video.muted,true);
    assert.equal(video.autoplay,true);
    assert.equal(video.controls,true);
    assert.equal(video.playsInline,true);
-   assert.match(document.querySelector('.case-client').textContent,/Client: Branzyne/);
+   if(id==='branzyne-film') assert.match(document.querySelector('.case-client').textContent,/Client: Branzyne/);
+   else assert.equal(document.querySelector('.case-client'),null,'Neo is a personal sample, not a client film');
   } else assert.equal(document.querySelector('video'),null);
   assert.equal(document.querySelector('a[download]'),null);
   assert.equal(document.querySelector('script[src="https://www.instagram.com/embed.js"]'),null);
-  if(reel && id!=='branzyne-film'){
-   const url=`https://www.instagram.com/reel/${reel}/`;
-   assert.equal(document.querySelector('.instagram-link a').href,url);
-   await act(async()=>document.querySelector('.film-load').dispatchEvent(new MouseEvent('click',{bubbles:true})));
-   assert.equal(document.querySelector('.instagram-media').dataset.instgrmPermalink,url);
-   assert.equal(document.querySelectorAll('script[src="https://www.instagram.com/embed.js"]').length,1);
-   document.querySelector('script[src="https://www.instagram.com/embed.js"]').dispatchEvent(new Event('error'));
-   assert.equal(document.querySelector('.instagram-link a').href,url);
-   assert.equal(document.querySelector('.instagram-media a').href,url);
-  }
   await act(async()=>root.unmount());
   assert.equal(document.querySelector('.instagram-reel'),null);
   dom.window.close();
@@ -110,7 +101,7 @@ test('public media references exist and private repositories are excluded',()=>{
  const app=readFileSync('App.tsx','utf8');
  for(const match of (data+app).matchAll(/['"]\/(images|media)\/([^'"]+)['"]/g))assert.ok(existsSync('public/'+match[1]+'/'+match[2]),match[0]);
  assert.doesNotMatch(data,/github\.com\/Vinayak19112003\/(branzyne|plato-reels|agent-video-studio|happy-paws-slots)/i);
- assert.equal([...data.matchAll(/\/media\/[^"']+\.mp4/g)].map(m=>m[0]).join(),'/media/branzyne-promo.mp4');
+ assert.deepEqual([...data.matchAll(/\/media\/[^"']+\.mp4/g)].map(m=>m[0]).sort(),['/media/branzyne-promo.mp4','/media/neo-introduction.mp4']);
 });
 
 test('open-source page hydrates with unique upstream PR evidence and both supplied SpoonOS posts',async()=>{
@@ -138,8 +129,8 @@ test('open-source page hydrates with unique upstream PR evidence and both suppli
  dom.window.close();
 });
 
-test('Branzyne video waits for visibility, pauses outside the viewport, and respects reduced motion',async()=>{
- const dom=new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',{url:'https://www.vinayakdeshmuk.in/work/branzyne-film/'});
+for (const [filmId, filmSrc] of [['branzyne-film','/media/branzyne-promo.mp4'],['neo-film','/media/neo-introduction.mp4']]) test(`${filmId} waits for visibility, pauses outside the viewport, and respects reduced motion`,async()=>{
+ const dom=new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',{url:`https://www.vinayakdeshmuk.in/work/${filmId}/`});
  for(const key of ['window','document','navigator','HTMLElement','Event','MouseEvent'])Object.defineProperty(globalThis,key,{value:dom.window[key],configurable:true,writable:true});
  let observerCallback;let disconnected=false;let motionChange;
  class Observer{constructor(callback){observerCallback=callback;}observe(){}disconnect(){disconnected=true;}}
@@ -159,7 +150,7 @@ test('Branzyne video waits for visibility, pauses outside the viewport, and resp
  await act(async()=>observerCallback([{isIntersecting:true,intersectionRatio:0.1}]));
  assert.equal(video.getAttribute('src'),null);
  await act(async()=>observerCallback([{isIntersecting:true,intersectionRatio:0.5}]));
- assert.equal(video.getAttribute('src'),'/media/branzyne-promo.mp4');
+ assert.equal(video.getAttribute('src'),filmSrc);
  assert.equal(playCalls,1);
  assert.equal(video.muted,true);
  await act(async()=>observerCallback([{isIntersecting:false,intersectionRatio:0}]));
