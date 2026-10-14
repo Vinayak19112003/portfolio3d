@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, Menu, X } from "lucide-react";
 import { ProjectDialog } from "./components/ProjectDialog";
 import { ProjectVisual } from "./components/ProjectVisual";
@@ -11,6 +11,11 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [filter, setFilter] = useState<string>("All");
   const [selected, setSelected] = useState<Project | null>(null);
+  const projectTrigger = useRef<HTMLElement | null>(null);
+  function openProject(project: Project, trigger: HTMLElement) {
+    projectTrigger.current = trigger;
+    setSelected(project);
+  }
   const visible =
     filter === "All" ? projects : projects.filter((p) => p.category === filter);
   useEffect(() => {
@@ -96,7 +101,7 @@ export default function App() {
           <div className="hero-stage" aria-label="Featured work previews">
             <button
               className="hero-groom"
-              onClick={() => setSelected(projects[0])}
+              onClick={(e) => openProject(projects[0], e.currentTarget)}
               aria-label="Explore Groom Room by Asha booking app"
             >
               <div className="mini-nav">
@@ -129,7 +134,7 @@ export default function App() {
             </button>
             <button
               className="hero-neo"
-              onClick={() => setSelected(projects[4])}
+              onClick={(e) => openProject(projects[4], e.currentTarget)}
               aria-label="Watch Neo introduction film"
             >
               <img
@@ -143,7 +148,7 @@ export default function App() {
             </button>
             <button
               className="hero-trace"
-              onClick={() => setSelected(projects[1])}
+              onClick={(e) => openProject(projects[1], e.currentTarget)}
               aria-label="Explore TraceReel browser-to-video toolkit"
             >
               <div>
@@ -210,7 +215,7 @@ export default function App() {
                 <article className={"project-card project-" + p.id} key={p.id}>
                   <button
                     className="project-image-button"
-                    onClick={() => setSelected(p)}
+                    onClick={(e) => openProject(p, e.currentTarget)}
                     aria-label={(p.video ? "Watch " : "Explore ") + p.title}
                   >
                     <ProjectVisual project={p} />
@@ -222,7 +227,7 @@ export default function App() {
                   <div className="project-title-row">
                     <div>
                       <h3>
-                        <button onClick={() => setSelected(p)}>
+                        <button onClick={(e) => openProject(p, e.currentTarget)}>
                           {p.title}
                         </button>
                       </h3>
@@ -433,7 +438,7 @@ export default function App() {
         </div>
       </footer>
       {selected ? (
-        <ProjectDialog project={selected} onClose={() => setSelected(null)} />
+        <ProjectDialog project={selected} returnFocus={projectTrigger.current} onClose={() => setSelected(null)} />
       ) : null}
     </>
   );

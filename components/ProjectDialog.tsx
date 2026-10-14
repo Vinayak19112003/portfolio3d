@@ -3,9 +3,11 @@ import { ArrowUpRight, X } from "lucide-react";
 import type { Project } from "../data/projects";
 export function ProjectDialog({
   project,
+  returnFocus,
   onClose,
 }: {
   project: Project;
+  returnFocus?: HTMLElement | null;
   onClose: () => void;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
@@ -18,14 +20,18 @@ export function ProjectDialog({
     return () => {
       document.body.style.overflow = previousOverflow;
       if (dialog.open) dialog.close();
+      if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true });
     };
-  }, []);
+  }, [returnFocus]);
   return (
     <dialog
       ref={ref}
       className="project-dialog"
       aria-labelledby="project-dialog-title"
-      onCancel={onClose}
+      onCancel={(e) => {
+        e.preventDefault();
+        onClose();
+      }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
