@@ -1,52 +1,49 @@
-# Vinayak Deshmuk - Logic Craftsman
+# Vinayak Deshmuk — Client Portfolio
 
-> "I don't just use AI — I explore its mind to restructure human logic."
+A React + TypeScript + Vite portfolio for websites, video editing, and AI automation.
 
-A cinematic, 3D interactive portfolio website built with modern web technologies. This project features a unique integration of Spline 3D scenes with React, creating an immersive "Laboratory of Thought" experience.
+## Run
 
-## ✨ Features
+```sh
+npm ci
+npm run dev
+```
 
-- **3D Interactive Background**: A "Fireball" energy sphere that precisely follows your cursor in 3D space using raycasting logic.
-- **Cinematic Design**: Dark mode aesthetic with glassmorphism, glowing text, and smooth animations.
-- **Responsive Layout**: Customized for both desktop and mobile experiences (with optimized 3D handling).
-- **Philosophy-Driven UI**: Components representing "Thought Experiments", "Manifesto", and "Capabilities".
+## Verify and build
 
-## 🛠️ Tech Stack
+```sh
+npm test
+npm run build
+```
 
-- **Core**: [React](https://react.dev/) (TypeScript), [Vite](https://vitejs.dev/)
-- **3D & Animation**: 
-  - [@splinetool/react-spline](https://spline.design/) (3D Scenes)
-  - [Framer Motion](https://www.framer.com/motion/) (UI Animations)
-  - [Three.js](https://threejs.org/) (Raycasting & Math)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+Deploy `dist/` to static hosting. Production build settings remain `npm run build`, output `dist`.
 
-## 🚀 Getting Started
+## Public-facing work
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   ```
+- Groom Room by Asha: live booking-app demo, with clearly identified simulated payments/messages. No private source link.
+- TraceReel: public engineering project, with TakeOne attribution and integration limits.
+- MathLens: interactive-learning MVP case study; source repository is private and not linked.
+- Branzyne promotion: supplied 35-second film only, not a repository showcase. Its internal brand claims are not Vinayak’s results.
+- Neo: existing finished introduction film with actual silhouette frame as the cover.
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+Trading content and footage are excluded. No private repository links are exposed. No invented client metrics, awards, or testimonials.
 
-3. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+## Content maintenance
 
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
+Edit `data/projects.ts` for projects and destination links. Edit `lib/enquiry.mjs` to change the contact email. Neo’s Instagram URL is not yet supplied; add a verified public URL as the Neo project’s `live` field when available.
 
-## 🎮 Controls
+The enquiry form prepares an email draft and offers copy-to-clipboard with a manual fallback. It does not send mail, save records, or use a backend. A backend can be connected later if desired.
 
-- **Cursor**: Move your mouse to control the ethereal energy sphere in the background. The interaction uses precise camera raycasting logic to align the 3D object with your 2D cursor position.
-- **Scroll**: Navigate through the philosophical sections of the portfolio.
+## Media
 
----
+`public/media/branzyne-promo.mp4` is byte-for-byte identical to the supplied video. Neo’s existing final film is also copied unchanged. Neither downloads on initial page load: video elements mount only inside their project dialog and use `preload="none"`. Posters are extracted from the actual films, converted to WebP, and separate from the video masters.
 
-*Crafted with logic and code.*
+Project covers for TraceReel and MathLens are custom illustrative graphics, not claimed product screenshots. The Groom Room cover uses its supplied app hero image with editorial cover text.
+
+## Accessibility and motion
+
+Native buttons, labelled form fields, skip link, explicit video controls, escape-to-close native dialog, filter pressed states, normal cursors, and reduced-motion styling. No forced autoplay or scroll hijacking.
+
+## Validation limits
+
+Automated UI checks use jsdom; native dialog is polyfilled there. They exercise state changes and DOM behaviour, not real layout, focus trapping, codec playback, or clipboard/browser policy. Browser visual verification still needs to run on the deployment preview at desktop and mobile sizes.
