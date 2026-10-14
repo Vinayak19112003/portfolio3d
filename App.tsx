@@ -38,7 +38,6 @@ function Home() {
       <div className="hero-topline"><span className="eyebrow"><i/> Independent creative technologist</span><span className="hero-location">BASED IN INDIA · WORKING EVERYWHERE</span></div>
       <h1 id="hero-heading">I build digital<br/>experiences.<br/><em>And the stories</em><br/><em>around them.</em><span className="hero-asterisk" aria-hidden="true">✳</span></h1>
       <div className="hero-bottom"><p>Thoughtful websites. Cinematic films.<br/>Intelligent workflows.<br/><strong>One creative point of view.</strong></p><a className="round-link" href="#work"><span>Discover the work</span><span className="circle"><ArrowDown size={24}/></span></a></div>
-      <a className="hero-stage" href="/work/groom-room/" aria-label="Explore the Groom Room booking application"><div className="stage-caption"><span>IN FOCUS / 01</span><span>A little care.<br/><em>A better experience.</em></span></div><GroomScreen priority/><div className="stage-bottom"><span>GROOM ROOM BY ASHA</span><span>PRODUCT DESIGN & DEVELOPMENT <ArrowUpRight size={16}/></span></div></a>
     </section>
     <section className="work-section shell" id="work" aria-labelledby="work-heading">
       <div className="section-heading"><p className="eyebrow">01 / Selected work</p><h2 id="work-heading">Different mediums.<br/><em>Same intention.</em></h2><p>A selection of digital products,<br/>creative tools, and moving stories.</p></div>

@@ -22,6 +22,7 @@ test('prerendered homepage hydrates, navigation works, and enquiry prepares an e
  await act(async()=>{root=hydrateRoot(document.getElementById('root'),React.createElement(App),{onRecoverableError:e=>errors.push(e.message)});});
  assert.deepEqual(errors,[]);
  assert.equal(document.querySelectorAll('.feature').length,5);
+ assert.equal(document.querySelectorAll('img[src="/images/groom-interface.jpg"]').length,1, 'Groom Room preview appears once on the homepage');
  assert.equal(document.querySelectorAll('h1').length,1);
  assert.equal(document.querySelector('script[src="https://www.instagram.com/embed.js"]'),null);
  const paths=new Set([...document.querySelectorAll('.feature-art')].map(a=>a.getAttribute('href')));
