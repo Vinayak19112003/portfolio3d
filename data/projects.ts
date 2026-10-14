@@ -64,6 +64,8 @@ export const projects: Project[] = [
     ],
     caveat:
       "Built on the MIT-licensed TakeOne foundation by Atharva Deosthale, with added agent-trace reconstruction and audio tooling. Muse is the tested reference integration; other integrations have differing verification status.",
+    live: "https://trace-to-smooth-showcase.lovable.app/",
+    poster: "/images/tracereel-showcase.jpg",
     source: "https://github.com/Vinayak19112003/tracereel",
   },
   {

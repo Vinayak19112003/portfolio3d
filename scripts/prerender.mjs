@@ -17,7 +17,7 @@ for(const page of pages){
  .replace(/(<meta\s+property="og:description"\s+content=")[^"]*/,'$1'+escape(page.description))
  .replace(/(<meta\s+property="og:url"\s+content=")[^"]*/,'$1'+origin+page.path)
  .replace(/(<link rel="canonical" href=")[^"]*/,'$1'+origin+page.path);
- if(page.path !== '/' && page.path !== '/work/groom-room/') html=html.replace(/<link rel="preload" href="\/images\/groom-interface.jpg" as="image"\s*\/>/,'');
+ if(page.path !== '/' && page.path !== '/work/tracereel/') html=html.replace(/<link rel="preload" href="\/images\/tracereel-showcase.jpg" as="image"\s*\/>/,'');
  if(page.poster) html=html.replace(/(<meta\s+property="og:image"\s+content=")[^"]*/,'$1'+origin+page.poster);
  if(page.path==='/404') html=html.replace('</head>','<meta name="robots" content="noindex" /></head>');
  const directory=page.path==='/404'?'dist':`dist${page.path}`;

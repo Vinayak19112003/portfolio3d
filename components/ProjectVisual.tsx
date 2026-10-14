@@ -23,45 +23,7 @@ export function ProjectVisual({ project }: { project: Project }) {
       </div>
     );
   if (project.id === "tracereel")
-    return (
-      <div className="trace-cover">
-        <div className="trace-cover-title">
-          <span>▣</span> TraceReel
-        </div>
-        <p>
-          From browser action
-          <br />
-          to a finished film.
-        </p>
-        <div className="trace-diagram" aria-hidden="true">
-          <div>
-            <span>01</span>
-            <b>Capture</b>
-            <i />
-          </div>
-          <div>
-            <span>02</span>
-            <b>Reconstruct</b>
-            <i />
-          </div>
-          <div>
-            <span>03</span>
-            <b>Render</b>
-            <i />
-          </div>
-        </div>
-        <div className="trace-timeline" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-        </div>
-        <span className="cover-note">Trace reconstruction toolkit</span>
-      </div>
-    );
+    return <div className="trace-showcase-cover"><div className="browser-frame"><div className="browser-bar"><span>● ● ●</span><span>TraceReel / Interactive showcase</span><span>↗</span></div><img src={project.poster} width="1348" height="926" loading="lazy" alt="TraceReel’s pitching site with its browser-trace demo and reconstruction interface"/></div><span className="cover-note">Browser traces → smooth product stories</span></div>;
   if (project.id === "mathlens")
     return (
       <div className="math-cover">

@@ -40,7 +40,7 @@ Films are displayed through Instagram’s official embed script, loaded only aft
 
 Instagram controls embed availability and playback. The reels must remain public with embedding allowed; browser restrictions or Instagram sign-in requirements can prevent an embedded player from loading.
 
-Project covers for TraceReel and MathLens are custom illustrative graphics, not claimed product screenshots. Groom Room uses a captured screenshot of the actual public booking demo, presented inside a browser frame.
+TraceReel’s cover is a screenshot of its public interactive pitching site. MathLens uses a custom illustrative graphic, not a claimed product screenshot. Groom Room uses a captured screenshot of the actual public booking demo, presented inside a browser frame.
 
 ## Accessibility and motion
 
@@ -52,6 +52,6 @@ Automated UI checks use jsdom and cover server-rendered hydration, direct projec
 
 ## Page architecture
 
-The homepage features three major projects and two supporting studies. Each project has a native `/work/<id>/` URL. The build prerenders the homepage, five case studies, and a 404 page into complete HTML with page-specific titles, descriptions, canonical URLs, Open Graph data, and a sitemap. React hydrates the same markup for forms, navigation, and click-to-load films. Native page navigation supports browser history and direct refresh without a router or catch-all rewrite.
+The homepage leads with TraceReel and Neo at equal visual weight, followed by smaller Groom Room, MathLens, and Branzyne cards. Each project has a native `/work/<id>/` URL. The build prerenders the homepage, five case studies, and a 404 page into complete HTML with page-specific titles, descriptions, canonical URLs, Open Graph data, and a sitemap. React hydrates the same markup for forms, navigation, and click-to-load films. Native page navigation supports browser history and direct refresh without a router or catch-all rewrite.
 
 The design uses charcoal, warm ivory, vermilion, Manrope, DM Sans, and Instrument Serif. Responsive layouts switch at 1050px and 700px; motion respects `prefers-reduced-motion`. Budget and timeline fields are optional and collapsed by default.

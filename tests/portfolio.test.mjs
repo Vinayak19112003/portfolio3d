@@ -22,6 +22,9 @@ test('prerendered homepage hydrates, navigation works, and enquiry prepares an e
  await act(async()=>{root=hydrateRoot(document.getElementById('root'),React.createElement(App),{onRecoverableError:e=>errors.push(e.message)});});
  assert.deepEqual(errors,[]);
  assert.equal(document.querySelectorAll('.feature').length,5);
+ assert.deepEqual([...document.querySelectorAll('.work-leads .feature h3')].map(el=>el.textContent),['TraceReel','Meet Neo']);
+ assert.ok(document.querySelector('.support-grid .feature-groom-room'));
+ assert.equal(document.querySelector('.work-leads .feature-groom-room'),null);
  assert.equal(document.querySelectorAll('img[src="/images/groom-interface.jpg"]').length,1, 'Groom Room preview appears once on the homepage');
  assert.equal(document.querySelectorAll('h1').length,1);
  assert.equal(document.querySelector('script[src="https://www.instagram.com/embed.js"]'),null);
@@ -63,6 +66,7 @@ test('direct project routes hydrate and load only the correct Instagram reel on 
   await act(async()=>{root=hydrateRoot(document.getElementById('root'),React.createElement(App),{onRecoverableError:e=>errors.push(e.message)});});
   assert.deepEqual(errors,[]);
   assert.equal(document.querySelector('h1').textContent,title);
+  if(id==='tracereel') assert.equal(document.querySelector('.case-actions a').href,'https://trace-to-smooth-showcase.lovable.app/');
   assert.equal(document.querySelector('.back-link').getAttribute('href'),'/#work');
   assert.equal(document.querySelector('video'),null);
   assert.equal(document.querySelector('a[download]'),null);
