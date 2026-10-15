@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowDown, ArrowLeft, ArrowUpRight, Menu, X, Play, Plus } from "lucide-react";
+import { Analytics } from "@vercel/analytics/react";
 import { projects, type Project } from "./data/projects";
 import { ProjectVisual } from "./components/ProjectVisual";
 import { ProjectEnquiry } from "./components/ProjectEnquiry";
@@ -78,5 +79,5 @@ function CaseStudy({ project }: { project: Project }) {
 export default function App({ initialPath }: { initialPath?: string }) {
   const path = (initialPath ?? (typeof window !== "undefined" ? window.location.pathname : "/")).replace(/\/+$/, "") || "/";
   const project = projects.find(p => path === `/work/${p.id}`);
-  return <><a className="skip-link" href="#main">Skip to content</a><Header/><main id="main">{path === "/" ? <Home/> : path === "/open-source" ? <OpenSourcePage/> : project ? <CaseStudy project={project}/> : <section className="not-found shell"><p className="eyebrow">404 / Page not found</p><h1>Let’s get you<br/><em>back to the work.</em></h1><a className="button button-ivory" href="/">Back home <ArrowUpRight size={18}/></a></section>}</main><footer className="site-footer shell"><a className="footer-name" href="/">vinayak<span>✳</span></a><div><span>Design. Build. Tell a story.</span><a href="mailto:vinayak19112003@gmail.com">Email <ArrowUpRight size={14}/></a><a href="https://github.com/Vinayak19112003" target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight size={14}/></a><span>© {new Date().getFullYear()} Vinayak Deshmuk</span></div></footer></>;
+  return <><a className="skip-link" href="#main">Skip to content</a><Header/><main id="main">{path === "/" ? <Home/> : path === "/open-source" ? <OpenSourcePage/> : project ? <CaseStudy project={project}/> : <section className="not-found shell"><p className="eyebrow">404 / Page not found</p><h1>Let’s get you<br/><em>back to the work.</em></h1><a className="button button-ivory" href="/">Back home <ArrowUpRight size={18}/></a></section>}</main><footer className="site-footer shell"><a className="footer-name" href="/">vinayak<span>✳</span></a><div><span>Design. Build. Tell a story.</span><a href="mailto:vinayak19112003@gmail.com">Email <ArrowUpRight size={14}/></a><a href="https://github.com/Vinayak19112003" target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight size={14}/></a><span>© {new Date().getFullYear()} Vinayak Deshmuk</span></div></footer><Analytics /></>;
 }
