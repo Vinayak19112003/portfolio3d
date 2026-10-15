@@ -2,10 +2,10 @@
 
 Run `npm ci`, `npm test`, and `npm run build`. Deploy `dist/`. The existing Vercel project builds GitHub main automatically.
 
-The build runs TypeScript, Vite, and `scripts/prerender.mjs`. It emits complete static HTML for `/`, five `/work/<id>/` case studies, `/open-source/`, and `404.html`. Serve directory index files normally; do not add an SPA catch-all rewrite. No environment variables, API keys, or backend are required.
+The build runs TypeScript, Vite, and `scripts/prerender.mjs`. It emits complete static HTML for `/`, six `/work/<id>/` case studies, `/open-source/`, and `404.html`. Serve directory index files normally; do not add an SPA catch-all rewrite. No environment variables, API keys, or backend are required.
 
 Canonical origin: https://www.vinayakdeshmuk.in. The root domain redirects to www through the existing domain configuration. Individual metadata and the sitemap are generated during build; update the origin in the prerender script and index template together if the domain changes.
 
-Verification: use the Websites & coding, Video editing, and Open source category links; confirm each project appears once in its relevant group. Direct-load and refresh case-study URLs, use browser Back, open the mobile menu, watch both films, and prepare an enquiry. Check keyboard focus, reduced motion, and narrow-width layout. Neo and Branzyne use their original MP4s with muted autoplay when visible, pause outside the viewport, and respect reduced motion. Verify both films’ playback, pause/sound controls, and retained Instagram links.
+Verification: use the Websites & coding, Video editing, and Open source category links; confirm each project appears once in its relevant group. Direct-load and refresh case-study URLs, use browser Back, open the mobile menu, watch all three films, and prepare an enquiry. Check keyboard focus, reduced motion, and narrow-width layout. Neo, Branzyne, and ClatterPop use their original MP4s with muted autoplay when visible, pause outside the viewport, and respect reduced motion. Verify all films’ playback, pause/sound controls, and retained Instagram links for Neo and Branzyne. ClatterPop has an Open video fallback and must retain its original 16:9 landscape framing.
 
 The enquiry form prepares a mailto draft; it does not send or store enquiries. Budget and timeline fields remain optional.

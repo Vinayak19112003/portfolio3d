@@ -23,17 +23,17 @@ test('prerendered homepage hydrates, navigation works, and enquiry prepares an e
  let root;
  await act(async()=>{root=hydrateRoot(document.getElementById('root'),React.createElement(App),{onRecoverableError:e=>errors.push(e.message)});});
  assert.deepEqual(errors,[]);
- assert.equal(document.querySelectorAll('.feature').length,5);
+ assert.equal(document.querySelectorAll('.feature').length,6);
  assert.deepEqual([...document.querySelectorAll('#coding .feature h3')].map(el=>el.textContent),['TraceReel','Groom Room by Asha','MathLens']);
- assert.deepEqual([...document.querySelectorAll('#video-editing .feature h3')].map(el=>el.textContent),['Branzyne — Brand Promo','Meet Neo']);
+ assert.deepEqual([...document.querySelectorAll('#video-editing .feature h3')].map(el=>el.textContent),['Branzyne — Brand Promo','Meet Neo','ClatterPop — Animated Ad']);
  assert.equal(document.querySelectorAll('#coding video').length,0);
- assert.equal(document.querySelectorAll('#video-editing video').length,2);
+ assert.equal(document.querySelectorAll('#video-editing video').length,3);
  assert.deepEqual([...document.querySelectorAll('.work-categories a')].map(el=>el.hash),['#coding','#video-editing','#open-source']);
  assert.equal(document.querySelectorAll('img[src="/images/groom-interface.jpg"]').length,1, 'Groom Room preview appears once on the homepage');
  assert.equal(document.querySelectorAll('h1').length,1);
  assert.equal(document.querySelector('script[src="https://www.instagram.com/embed.js"]'),null);
  const paths=new Set([...document.querySelectorAll('a.feature-art, .feature-video a.art-action')].map(a=>a.getAttribute('href')));
- assert.equal(paths.size,5);
+ assert.equal(paths.size,6);
  assert.ok(!paths.has(null));
  assert.match(document.querySelector('.feature-branzyne-film .client-credit').textContent,/Client: Branzyne/);
  for(const a of document.querySelectorAll('a[href^="#"], a[href^="/#"]'))assert.ok(document.getElementById(a.hash.slice(1)),a.href);
@@ -64,7 +64,7 @@ test('prerendered homepage hydrates, navigation works, and enquiry prepares an e
 test('direct project routes hydrate with muted film autoplay and the correct Instagram links',async()=>{
  const {renderToString}=require('react-dom/server');
  const {hydrateRoot}=require('react-dom/client');
- for(const [id,title,reel] of [['neo-film','Meet Neo','DeeDdWPo_aR'],['branzyne-film','Branzyne — Brand Promo','Ded3kOWTovl'],['groom-room','Groom Room by Asha'],['tracereel','TraceReel'],['mathlens','MathLens']]){
+ for(const [id,title,reel] of [['neo-film','Meet Neo','DeeDdWPo_aR'],['branzyne-film','Branzyne — Brand Promo','Ded3kOWTovl'],['groom-room','Groom Room by Asha'],['tracereel','TraceReel'],['mathlens','MathLens'],['clatterpop-ad','ClatterPop — Animated Ad']]){
   const dom=new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',{url:`https://www.vinayakdeshmuk.in/work/${id}/`});
   for(const key of ['window','document','navigator','HTMLElement','Event','MouseEvent'])Object.defineProperty(globalThis,key,{value:dom.window[key],configurable:true,writable:true});
   dom.window.HTMLMediaElement.prototype.play=function(){return Promise.resolve();};
@@ -77,17 +77,25 @@ test('direct project routes hydrate with muted film autoplay and the correct Ins
   if(id==='tracereel') assert.equal(document.querySelector('.case-actions a').href,'https://trace-to-smooth-showcase.lovable.app/');
   assert.equal(document.querySelector('.back-link').getAttribute('href'),'/#work');
   if(reel) assert.equal(document.querySelector('.instagram-link a').href,`https://www.instagram.com/reel/${reel}/`);
-  if(reel){
+  if(reel || id==='clatterpop-ad'){
    const video=document.querySelector('video');
    assert.ok(video);
-   assert.equal(video.getAttribute('src'),id==='branzyne-film' ? '/media/branzyne-promo.mp4' : '/media/neo-introduction.mp4');
+   assert.equal(video.getAttribute('src'),id==='branzyne-film' ? '/media/branzyne-promo.mp4' : id==='neo-film' ? '/media/neo-introduction.mp4' : '/media/clatterpop-hackathon-ad.mp4');
    assert.equal(video.muted,true);
    assert.equal(video.autoplay,true);
    assert.equal(video.controls,true);
    assert.equal(video.playsInline,true);
    if(id==='branzyne-film') assert.match(document.querySelector('.case-client').textContent,/Client: Branzyne/);
-   else assert.equal(document.querySelector('.case-client'),null,'Neo is a personal sample, not a client film');
+   else assert.equal(document.querySelector('.case-client'),null,'Only Branzyne has a client credit');
   } else assert.equal(document.querySelector('video'),null);
+  if(id==='clatterpop-ad'){
+   assert.equal(document.querySelector('video').width,1920);
+   assert.equal(document.querySelector('video').height,1080);
+   assert.ok(document.querySelector('.film-player-wide'));
+   assert.match(document.querySelector('.instagram-link').textContent,/Created for an ElevenLabs hackathon/);
+   assert.equal(document.querySelector('.instagram-link a').getAttribute('href'),'/media/clatterpop-hackathon-ad.mp4');
+   assert.equal(document.querySelector('a[href="#film"]')?.textContent,'Watch the film');
+  }
   assert.equal(document.querySelector('a[download]'),null);
   assert.equal(document.querySelector('script[src="https://www.instagram.com/embed.js"]'),null);
   await act(async()=>root.unmount());
@@ -101,7 +109,7 @@ test('public media references exist and private repositories are excluded',()=>{
  const app=readFileSync('App.tsx','utf8');
  for(const match of (data+app).matchAll(/['"]\/(images|media)\/([^'"]+)['"]/g))assert.ok(existsSync('public/'+match[1]+'/'+match[2]),match[0]);
  assert.doesNotMatch(data,/github\.com\/Vinayak19112003\/(branzyne|plato-reels|agent-video-studio|happy-paws-slots)/i);
- assert.deepEqual([...data.matchAll(/\/media\/[^"']+\.mp4/g)].map(m=>m[0]).sort(),['/media/branzyne-promo.mp4','/media/neo-introduction.mp4']);
+ assert.deepEqual([...data.matchAll(/\/media\/[^"']+\.mp4/g)].map(m=>m[0]).sort(),['/media/branzyne-promo.mp4','/media/clatterpop-hackathon-ad.mp4','/media/neo-introduction.mp4']);
 });
 
 test('open-source page hydrates with unique upstream PR evidence and both supplied SpoonOS posts',async()=>{
@@ -129,7 +137,7 @@ test('open-source page hydrates with unique upstream PR evidence and both suppli
  dom.window.close();
 });
 
-for (const [filmId, filmSrc] of [['branzyne-film','/media/branzyne-promo.mp4'],['neo-film','/media/neo-introduction.mp4']]) test(`${filmId} waits for visibility, pauses outside the viewport, and respects reduced motion`,async()=>{
+for (const [filmId, filmSrc] of [['branzyne-film','/media/branzyne-promo.mp4'],['neo-film','/media/neo-introduction.mp4'],['clatterpop-ad','/media/clatterpop-hackathon-ad.mp4']]) test(`${filmId} waits for visibility, pauses outside the viewport, and respects reduced motion`,async()=>{
  const dom=new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',{url:`https://www.vinayakdeshmuk.in/work/${filmId}/`});
  for(const key of ['window','document','navigator','HTMLElement','Event','MouseEvent'])Object.defineProperty(globalThis,key,{value:dom.window[key],configurable:true,writable:true});
  let observerCallback;let disconnected=false;let motionChange;

@@ -1432,7 +1432,7 @@ select option {
 .trace-showcase-cover .browser-bar { background: #18251f; color: #b4c8bb; }
 .trace-showcase-cover .browser-frame img { aspect-ratio: 1.46; object-fit: cover; object-position: top; }
 .trace-showcase-cover .cover-note { color: #c2d1c6; margin-top: 0; font-size: 8px; }
-.editing-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
+.editing-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
 .editing-grid .feature-art { height: 390px; }
 .editing-grid .neo-cover img { object-fit: contain; }
 .editing-grid .film-cover-title { font-size: 100px; left: 12%; top: 10%; }
@@ -1527,3 +1527,14 @@ select option {
 .feature-video .art-action { top: 12px; bottom: auto; right: 12px; width: 30px; height: 30px; }
 .feature-video .art-action svg { width: 16px; }
 @media (max-width: 700px) { .feature-video { padding-inline: 40px; } }
+
+/* Landscape advertisements retain their original framing. */
+.feature-video-wide { background: #30271f; padding: 16px 12px 27px; }
+.film-player-wide .film-player-stage { max-width: 1040px; min-height: 0; }
+.editing-grid .feature-copy h3 { font-size: clamp(20px, 2vw, 28px); }
+.editing-grid .project-meta > span:last-child { display: none; }
+@media (max-width: 700px) {
+ .editing-grid .feature-copy h3 { font-size: 25px; }
+ .feature-video-wide { padding-inline: 10px; }
+ .feature-video-wide video { background: #30271f; }
+}

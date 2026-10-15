@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export function AutoplayFilm({ src, poster, title }: { src: string; poster?: string; title: string }) {
+export function AutoplayFilm({ src, poster, title, width = 1080, height = 1920 }: { src: string; poster?: string; title: string; width?: number; height?: number }) {
   const video = useRef<HTMLVideoElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -50,9 +50,9 @@ export function AutoplayFilm({ src, poster, title }: { src: string; poster?: str
   }, [loaded, visible, reducedMotion]);
 
   return <div className="autoplay-film">
-    <video ref={video} src={loaded ? src : undefined} poster={poster} width="1080" height="1920" controls muted={loaded} playsInline loop autoPlay={loaded && visible && !reducedMotion} preload="none" aria-label={title} onError={() => setFailed(true)}>
-      Your browser does not support this video. Use the Instagram link below.
+    <video ref={video} src={loaded ? src : undefined} poster={poster} width={width} height={height} style={{ aspectRatio: `${width} / ${height}` }} controls muted={loaded} playsInline loop autoPlay={loaded && visible && !reducedMotion} preload="none" aria-label={title} onError={() => setFailed(true)}>
+      Your browser does not support this video. Use the link below to watch.
     </video>
-    <p className="autoplay-film-note" role="status">{failed ? "Video unavailable here. Watch on Instagram below." : blocked || reducedMotion ? "Press play to watch. Starts muted; use the sound control to listen." : "Starts muted · Use the sound control to listen."}</p>
+    <p className="autoplay-film-note" role="status">{failed ? "Video unavailable here. Open the project or use its watch link." : blocked || reducedMotion ? "Press play to watch. Starts muted; use the sound control to listen." : "Starts muted · Use the sound control to listen."}</p>
   </div>;
 }

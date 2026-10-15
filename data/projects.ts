@@ -16,6 +16,9 @@ export type Project = {
   poster?: string;
   client?: string;
   video?: string;
+  videoWidth?: number;
+  videoHeight?: number;
+  videoNote?: string;
 };
 // Public-facing work only. Never add private source URLs here.
 export const projects: Project[] = [
@@ -103,6 +106,7 @@ export const projects: Project[] = [
     label: "Client brand film",
     client: "Branzyne",
     video: "/media/branzyne-promo.mp4",
+    videoNote: "Client: Branzyne. Original 35-second promo.",
     description:
       "A vertical promotional film created for my client Branzyne, combining animated typography, purple brand lighting, and moving website previews.",
     problem:
@@ -130,6 +134,7 @@ export const projects: Project[] = [
     category: "Video & motion",
     label: "AI introduction film",
     video: "/media/neo-introduction.mp4",
+    videoNote: "Original 34-second introduction film.",
     description:
       "An introduction for Neo, an original human-looking AI persona created to present creative and technology services.",
     problem:
@@ -145,5 +150,31 @@ export const projects: Project[] = [
     ],
     instagram: "https://www.instagram.com/reel/DeeDdWPo_aR/",
     poster: "/images/neo-poster.webp",
+  },
+  {
+    id: "clatterpop-ad",
+    number: "06",
+    title: "ClatterPop — Animated Ad",
+    subtitle: "An animated product ad created for an ElevenLabs hackathon.",
+    category: "Video & motion",
+    label: "ElevenLabs hackathon",
+    video: "/media/clatterpop-hackathon-ad.mp4",
+    videoWidth: 1920,
+    videoHeight: 1080,
+    videoNote: "Created for an ElevenLabs hackathon · 27 seconds · 1920 × 1080.",
+    poster: "/images/clatterpop-poster.webp",
+    description:
+      "A 27-second ClatterPop advertisement created for an ElevenLabs hackathon. A stop-motion-style café character, a red mint tin, and playful everyday objects bring the product story to life.",
+    problem:
+      "Introduce ClatterPop through a short, memorable product story that turns an ordinary café visit into a playful moment.",
+    approach:
+      "The film connects character close-ups, product shots, and animated café and street scenes. Warm textures, expressive movement, and on-screen captions carry the story across the sequence.",
+    deliverables: [
+      "Animated character and product storytelling",
+      "Café and street scene editing",
+      "On-screen captions and product branding",
+      "27-second landscape film with audio",
+      "Original 1920 × 1080, 24 fps delivery",
+    ],
   },
 ];
