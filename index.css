@@ -1538,3 +1538,77 @@ select option {
  .feature-video-wide { padding-inline: 10px; }
  .feature-video-wide video { background: #30271f; }
 }
+
+/* Full editing collection, following the three selected films. */
+.editing-portfolio {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 32px;
+  margin-top: 48px;
+  padding: 40px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--red);
+  border-radius: 3px;
+  background: #20201d;
+}
+.editing-portfolio-copy .eyebrow {
+  color: var(--muted);
+  font-size: 10px;
+}
+.editing-portfolio-copy h3 {
+  margin: 18px 0 14px;
+  font-size: clamp(30px, 3.4vw, 48px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -.045em;
+}
+.editing-portfolio-copy > p:last-child {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.editing-portfolio-action {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.editing-portfolio-button {
+  justify-content: center;
+  gap: 16px;
+  min-height: 54px;
+  padding: 18px 25px;
+  background: var(--red);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.editing-portfolio-button:hover {
+  background: var(--ivory);
+  color: var(--ink);
+}
+.editing-portfolio-action > p {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+@media (max-width: 1050px) {
+  .editing-portfolio { padding: 30px; gap: 24px; }
+}
+@media (max-width: 700px) {
+  .editing-portfolio {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+    margin-top: 35px;
+    padding: 28px 22px;
+  }
+  .editing-portfolio-copy h3 { font-size: clamp(30px, 8vw, 42px); }
+  .editing-portfolio-copy > p:last-child { font-size: 13px; }
+  .editing-portfolio-action { align-items: stretch; gap: 12px; }
+  .editing-portfolio-action > p { font-size: 11px; }
+}

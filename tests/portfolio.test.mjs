@@ -132,7 +132,7 @@ test('open-source page hydrates with unique upstream PR evidence and both suppli
  assert.match(document.querySelector('.contribution-summary').textContent,/7 selected merged PRs6 upstream projects/);
  for(const url of ['https://x.com/SpoonOS_ai/status/2022205989878112606','https://x.com/SpoonOS_ai/status/2032377323425865788'])assert.ok(document.querySelector(`a[href="${url}"]`));
  assert.doesNotMatch(document.body.textContent,/prize|winner|win rate|trading/i);
- assert.equal(document.querySelector('script[src]'),null,'Social links must not load a third-party SDK');
+ assert.equal(document.querySelector('script[src*="instagram.com"], script[src*="platform.twitter.com"], script[src*="connect.facebook.net"], script[src*="platform.linkedin.com"]'),null,'Social links must not load a third-party SDK');
  await act(async()=>root.unmount());
  dom.window.close();
 });

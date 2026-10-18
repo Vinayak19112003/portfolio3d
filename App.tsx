@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowDown, ArrowLeft, ArrowUpRight, Menu, X, Play, Plus } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowUpRight, FolderOpen, Menu, X, Play, Plus } from "lucide-react";
 import { Analytics } from "@vercel/analytics/react";
 import { projects, type Project } from "./data/projects";
 import { ProjectVisual } from "./components/ProjectVisual";
@@ -35,6 +35,19 @@ function Feature({ project, index }: { project: Project; index: string }) {
     </div>
   </article>;
 }
+function FullEditingPortfolio() {
+  return <aside className="editing-portfolio" aria-labelledby="editing-portfolio-heading">
+    <div className="editing-portfolio-copy">
+      <p className="eyebrow">The complete collection</p>
+      <h3 id="editing-portfolio-heading">More edits. <em>More stories.</em></h3>
+      <p>Explore my full video editing portfolio on Google Drive.</p>
+    </div>
+    <div className="editing-portfolio-action">
+      <a className="button editing-portfolio-button" href="https://drive.google.com/drive/folders/1QnPNTyNMiQcHHKwFMboF9LzPqB5nFBq1" target="_blank" rel="noopener noreferrer" aria-describedby="editing-portfolio-destination">View full portfolio <ArrowUpRight size={19}/></a>
+      <p id="editing-portfolio-destination"><FolderOpen size={18} aria-hidden="true"/> Opens Google Drive in a new tab</p>
+    </div>
+  </aside>;
+}
 function Home() {
   return <>
     <section className="hero shell" aria-labelledby="hero-heading">
@@ -46,7 +59,7 @@ function Home() {
       <div className="section-heading"><p className="eyebrow">01 / Selected work</p><h2 id="work-heading">Find the work.<br/><em>By what you need.</em></h2><p>Websites and coding, video editing, and contributions to open-source projects. Choose a category to explore.</p></div>
       <nav className="work-categories" aria-label="Work categories"><a href="#coding">Websites & coding <span>03</span><ArrowDown size={16}/></a><a href="#video-editing">Video editing <span>03</span><ArrowDown size={16}/></a><a href="#open-source">Open source<ArrowDown size={16}/></a></nav>
       <section className="work-group" id="coding" aria-labelledby="coding-heading"><div className="work-group-heading"><div><p className="eyebrow">Build / 03 projects</p><h2 id="coding-heading">Websites & coding</h2></div><p>Websites, apps, and useful tools I’ve built. Open a project to see how it works.</p></div><div className="coding-grid"><Feature project={findProject("tracereel")} index="01"/><Feature project={findProject("groom-room")} index="02"/><Feature project={findProject("mathlens")} index="03"/></div></section>
-      <section className="work-group" id="video-editing" aria-labelledby="editing-heading"><div className="work-group-heading"><div><p className="eyebrow">Edit / 03 films</p><h2 id="editing-heading">Video editing</h2></div><p>Brand promos and short videos. Editing, animated text, and sound brought together.</p></div><div className="editing-grid"><Feature project={findProject("branzyne-film")} index="04"/><Feature project={findProject("neo-film")} index="05"/><Feature project={findProject("clatterpop-ad")} index="06"/></div></section>
+      <section className="work-group" id="video-editing" aria-labelledby="editing-heading"><div className="work-group-heading"><div><p className="eyebrow">Edit / 03 films</p><h2 id="editing-heading">Video editing</h2></div><p>Brand promos and short videos. Editing, animated text, and sound brought together.</p></div><div className="editing-grid"><Feature project={findProject("branzyne-film")} index="04"/><Feature project={findProject("neo-film")} index="05"/><Feature project={findProject("clatterpop-ad")} index="06"/></div><FullEditingPortfolio/></section>
     </section>
     <OpenSourceSection/>
     <section className="services-section" id="services" aria-labelledby="services-heading"><div className="shell"><div className="section-heading"><p className="eyebrow">03 / What I can do for you</p><h2 id="services-heading">From the first idea<br/><em>to the final detail.</em></h2></div>

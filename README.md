@@ -33,6 +33,8 @@ Trading content and footage are excluded. No private repository links are expose
 
 Edit `data/projects.ts` for projects and destination links. The `instagram` field stores each film’s reel URL: Neo uses `DeeDdWPo_aR` and Branzyne uses `Ded3kOWTovl`. Edit `lib/enquiry.mjs` to change the contact email.
 
+The full editing collection is linked from the “More edits. More stories.” card immediately below the three featured films. Its “View full portfolio” button opens the supplied Google Drive folder in a new tab. Update that destination in `FullEditingPortfolio` in `App.tsx`.
+
 The enquiry form prepares an email draft and offers copy-to-clipboard with a manual fallback. It does not send mail, save records, or use a backend. A backend can be connected later if desired.
 
 ## Media
