@@ -40,11 +40,11 @@ function FullEditingPortfolio() {
     <div className="editing-portfolio-copy">
       <p className="eyebrow">The complete collection</p>
       <h3 id="editing-portfolio-heading">More edits. <em>More stories.</em></h3>
-      <p>Explore my finished video edits, including a podcast before-and-after comparison showing how I transform raw interview footage with animated captions, visual emphasis, and pacing.</p>
+      <p>Featured podcast case study: I transformed a 2-minute-56-second interview excerpt into a focused 61-second vertical reel, selecting the hook, tightening conversation, pacing speaker cuts, and adding Romanized Hindi subtitles and keyword highlights. View the raw footage, longer edit, and finished reel side by side.</p>
     </div>
     <div className="editing-portfolio-action">
       <a className="button editing-portfolio-button" href="https://drive.google.com/drive/folders/1QnPNTyNMiQcHHKwFMboF9LzPqB5nFBq1" target="_blank" rel="noopener noreferrer" aria-describedby="editing-portfolio-destination">View full portfolio <ArrowUpRight size={19}/></a>
-      <p id="editing-portfolio-destination"><FolderOpen size={18} aria-hidden="true"/> Opens Google Drive in a new tab</p><a className="text-link" href="https://drive.google.com/drive/folders/157L7036w2n61zhh0VDTAw39EcbEtlLMF" target="_blank" rel="noopener noreferrer">Podcast before &amp; after — compare raw vs edited <ArrowUpRight size={16}/></a>
+      <p id="editing-portfolio-destination"><FolderOpen size={18} aria-hidden="true"/> Opens Google Drive in a new tab</p><a className="text-link" href="https://drive.google.com/drive/folders/157L7036w2n61zhh0VDTAw39EcbEtlLMF" target="_blank" rel="noopener noreferrer">Compare the raw interview and both edits <ArrowUpRight size={16}/></a><a className="text-link" href="https://drive.google.com/file/d/1Ex9Lu5MYFaEY0tcHpvD7CHEEiWy3bWT5/view" target="_blank" rel="noopener noreferrer">Watch the 61-second podcast reel <ArrowUpRight size={16}/></a>
     </div>
   </aside>;
 }
@@ -65,7 +65,7 @@ function Home() {
     <section className="services-section" id="services" aria-labelledby="services-heading"><div className="shell"><div className="section-heading"><p className="eyebrow">03 / What I can do for you</p><h2 id="services-heading">From the first idea<br/><em>to the final detail.</em></h2></div>
       {[
         ["01", "Websites & apps", "Design & coding", "A website for your business, a booking app, or a custom tool. Designed for your audience and built to be easy to use.", "Web design / Development / Custom tools"],
-        ["02", "Video editing", "Podcasts, reels & brand promos", "I edit longer interviews and podcast clips into engaging stories, and can condense around three minutes of footage into focused, one-minute reels. I prioritize fast turnaround, clear pacing, animated captions, and clean audio.", "Podcast editing / Short-form reels / Fast turnaround / Motion graphics"],
+        ["02", "Video editing", "Podcasts, reels & brand promos", "I edit podcast highlights, long-form interview excerpts, and short-form reels. My featured comparison shows an approximately 3-minute podcast segment condensed into a 61-second, hook-led vertical edit with Romanized Hindi captions, precise cuts, and keyword highlights. Fast turnaround is a priority, with timelines depending on each project.", "Podcast editing / Short-form reels / Fast turnaround / Motion graphics"],
         ["03", "AI & automation", "Tools that save you time", "Connect your apps and automate repetitive tasks with practical workflows and custom tools.", "Workflows / App integrations / AI tools"],
       ].map(([n,title,label,description,tags]) => <a className="service-row" href="#contact" key={n}><span className="service-number">{n}</span><div><span className="eyebrow">{label}</span><h3>{title}</h3></div><div className="service-description"><p>{description}</p><small>{tags}</small></div><ArrowUpRight className="service-arrow"/></a>)}
     </div></section>
